@@ -6,4 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+<<<<<<< HEAD
 //hello word
+=======
+>>>>>>> 04c78f5 (iniciar laravel)
