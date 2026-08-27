@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date("fecha_generacion");
 
             $table->foreign("id_usuario")
-                  ->references("id")
+                  ->references("id_usuario")
                   ->on("usuario");
         });
     }
