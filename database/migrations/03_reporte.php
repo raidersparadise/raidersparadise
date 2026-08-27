@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reporte', function (Blueprint $table) {
             $table->increments("id_reporte");
-            $table->unsignedInteger("id_usuario");
+            $table->unsignedBigInteger("id_usuario");
             $table->string("tipo_reporte", 100);
             $table->date("fecha_generacion");
 
