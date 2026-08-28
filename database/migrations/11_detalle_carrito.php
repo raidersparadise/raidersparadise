@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('detalle_carrito', function (Blueprint $table) {
             $table->id("id_detalle_carrito");
             $table->unsignedBigInteger("id_carrito");
-            $table->foreign("id_carrito")->references(id)->on("carrito")->onDelete("cascade");
+            $table->foreign("id_carrito")->references("id_carrito")->on("carrito")->onDelete("cascade");
             $table->unsignedBigInteger("id_producto");
-            $table->foreign("id_producto")->references(id)->on("producto")->onDelete("cascade");
+            $table->foreign("id_producto")->references("id_producto")->on("producto")->onDelete("cascade");
             $table->unsignedInteger("cantidad");
             $table->decimal("precio_unitario", 12, 2);
             $table->decimal("subtotal", 12, 2);
