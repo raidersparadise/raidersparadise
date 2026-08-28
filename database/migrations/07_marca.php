@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('marca', function (Blueprint $table) {
             $table->id("id_marca");
             $table->string("nombre_marca",40);
-            $table->string("descripcion_marca",255)->nullabel();
+            $table->string("descripcion_marca",255)->nullable();
             $table->timestamps();
         });
     }
