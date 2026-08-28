@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string("nombre_cliente",40);
             $table->string("apellido_cliente",40);
             $table->string("email",150)->unique();
-            $table->string("telefono",20)->nullabel();
-            $table->string("direccion",100)->nullabel();
+            $table->string("telefono",20)->nullable();
+            $table->string("direccion",100)->nullable();
             $table->timestamps();
         });
     }
