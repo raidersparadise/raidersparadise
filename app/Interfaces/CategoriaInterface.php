@@ -4,6 +4,8 @@ namespace App\Interfaces;
 
 interface CategoriaInterface extends BaseInterface
 {
-    // Buscar categoría por nombre
-    public function getByName(string $nombre);
+    public function getByNombreCategoria(string $nombre_categoria);
+
+    public function getByDescripcionCategoria(string $descripcion_categoria);
 }
+
