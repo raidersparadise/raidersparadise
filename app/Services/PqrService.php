@@ -53,26 +53,4 @@ class PqrService implements PqrInterface
 
         return true;
     }
-
-    // Buscar PQR por usuario
-    public function getByUsuario(int $id_usuario)
-    {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])
-        ->where('id_usuario', $id_usuario)
-        ->get();
-    }
-
-    // Buscar PQR por estado
-    public function getByEstado(string $estado)
-    {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])
-        ->where('estado', $estado)
-        ->get();
-    }
 }
