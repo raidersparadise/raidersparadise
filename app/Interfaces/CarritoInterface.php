@@ -4,6 +4,6 @@ namespace App\Interfaces;
 
 interface CarritoInterface extends BaseInterface
 {
-    // Buscar carrito por usuario
-    public function getByUsuario(int $id_usuario);
+    // Buscar carritos por cliente
+    public function getByCliente(int $id_cliente);
 }

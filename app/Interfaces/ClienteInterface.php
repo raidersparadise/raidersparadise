@@ -10,6 +10,4 @@ interface ClienteInterface extends BaseInterface
     // Buscar cliente por apellido
     public function getByLastname(string $apellido);
 
-    // Buscar cliente por documento
-    public function getByDocument(string $documento);
 }
