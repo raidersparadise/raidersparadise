@@ -3,48 +3,54 @@
 namespace App\Services;
 
 use App\Interfaces\CategoriaInterface;
+use App\Models\Categoria;
 
-class CategoriaService
+class CategoriaService implements CategoriaInterface
 {
-    protected CategoriaInterface $categoriaRepository;
-
-    public function __construct(CategoriaInterface $categoriaRepository)
-    {
-        $this->categoriaRepository = $categoriaRepository;
-    }
-
     public function getAll()
     {
-        return $this->categoriaRepository->getAll();
+        return Categoria::all();
     }
 
     public function getById(int $id)
     {
-        return $this->categoriaRepository->getById($id);
+        return Categoria::findOrFail($id);
     }
 
-    public function create(array $data)
+    public function create(array $datos)
     {
-        return $this->categoriaRepository->create($data);
+        return Categoria::create($datos);
     }
 
-    public function update(int $id, array $data)
+    public function update(array $datos, int $id)
     {
-        return $this->categoriaRepository->update($id, $data);
+        $categoria = Categoria::findOrFail($id);
+
+        $categoria->update($datos);
+
+        return $categoria;
     }
 
     public function delete(int $id)
     {
-        return $this->categoriaRepository->delete($id);
+        $categoria = Categoria::findOrFail($id);
+
+        return $categoria->delete();
     }
 
     public function getByNombreCategoria(string $nombre_categoria)
     {
-        return $this->categoriaRepository->getByNombreCategoria($nombre_categoria);
+        return Categoria::where(
+            'nombre_categoria',
+            $nombre_categoria
+        )->get();
     }
 
     public function getByDescripcionCategoria(string $descripcion_categoria)
     {
-        return $this->categoriaRepository->getByDescripcionCategoria($descripcion_categoria);
+        return Categoria::where(
+            'descripcion_categoria',
+            $descripcion_categoria
+        )->get();
     }
 }

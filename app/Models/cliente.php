@@ -13,11 +13,13 @@ class Cliente extends Model
 
     protected $primaryKey = 'id_cliente';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nombre_cliente',
         'apellido_cliente',
-        'email',
-        'telefono',
-        'direccion',
+        'email_cliente',
+        'telefono_cliente',
+        'direccion_cliente',
     ];
 }

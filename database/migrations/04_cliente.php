@@ -1,71 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use App\Services\ClienteService;
-use App\Http\Requests\Cliente\StoreClienteRequest;
-use App\Http\Requests\Cliente\UpdateClienteRequest;
-
-class ClienteController extends Controller
+return new class extends Migration
 {
-    protected $clienteService;
-
-    public function __construct(ClienteService $clienteService)
+    public function up(): void
     {
-        $this->clienteService = $clienteService;
+        Schema::create('cliente', function (Blueprint $table) {
+        $table->id('id_cliente');
+        $table->string('nombre_cliente');
+        $table->string('apellido_cliente');
+        $table->string('email_cliente');
+        $table->string('telefono_cliente');
+        $table->string('direccion_cliente');
+        
+    });
     }
 
-    public function index()
+    public function down(): void
     {
-        $clientes = $this->clienteService->getAll();
-
-        return response()->json([
-            'success' => 'Clientes consultados correctamente',
-            'data' => $clientes
-        ], 200);
+        Schema::dropIfExists('cliente');
     }
-
-    public function store(StoreClienteRequest $datos)
-    {
-        $cliente = $this->clienteService->create(
-            $datos->validated()
-        );
-
-        return response()->json([
-            'success' => 'Cliente creado correctamente',
-            'datosInsertado' => $cliente
-        ], 201);
-    }
-
-    public function show(int $id)
-    {
-        $cliente = $this->clienteService->getById($id);
-
-        return response()->json([
-            'success' => 'Cliente encontrado correctamente',
-            'data' => $cliente
-        ], 200);
-    }
-
-    public function update(UpdateClienteRequest $datosActualizar, int $id)
-    {
-        $cliente = $this->clienteService->update(
-            $datosActualizar->validated(),
-            $id
-        );
-
-        return response()->json([
-            'success' => 'Cliente actualizado correctamente',
-            'data' => $cliente
-        ], 200);
-    }
-
-    public function destroy(int $id)
-    {
-        $this->clienteService->delete($id);
-
-        return response()->json([
-            'success' => 'Cliente eliminado correctamente'
-        ], 200);
-    }
-}
+};

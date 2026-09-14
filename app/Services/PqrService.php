@@ -2,55 +2,38 @@
 
 namespace App\Services;
 
-use App\Interfaces\PqrInterface;
 use App\Models\Pqr;
 
-class PqrService implements PqrInterface
+class PqrService
 {
-    // Obtener todas las PQR
     public function getAll()
     {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])->get();
+        return Pqr::all();
     }
 
-    // Obtener una PQR por ID
     public function getById(int $id)
     {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])->findOrFail($id);
+        return Pqr::findOrFail($id);
     }
 
-    // Crear una PQR
-    public function create(array $datos)
+    public function create(array $data)
     {
-        return Pqr::create($datos);
+        return Pqr::create($data);
     }
 
-    // Actualizar una PQR
-    public function update(array $datos, int $id)
+    public function update(array $data, int $id)
     {
         $pqr = Pqr::findOrFail($id);
 
-        $pqr->update($datos);
+        $pqr->update($data);
 
-        return $pqr->load([
-            'usuario',
-            'cliente'
-        ]);
+        return $pqr;
     }
 
-    // Eliminar una PQR
     public function delete(int $id)
     {
         $pqr = Pqr::findOrFail($id);
 
-        $pqr->delete();
-
-        return true;
+        return $pqr->delete();
     }
 }

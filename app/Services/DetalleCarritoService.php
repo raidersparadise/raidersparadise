@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Interfaces\Detalle_carritoInterface;
-use App\Models\Detalle_carrito;
+use App\Interfaces\DetalleCarritoInterface;
+use App\Models\DetalleCarrito;
 
-class DetalleCarritoService implements Detalle_carritoInterface
+class DetalleCarritoService implements DetalleCarritoInterface
 {
     // Obtener todos los detalles del carrito
     public function getAll()

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Detalle_carrito;
+namespace App\Http\Requests\DetalleCarrito;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateDetalle_CarritoRequest extends FormRequest
+class UpdateDetalleCarritoRequest extends FormRequest
 {
     public function authorize(): bool
     {

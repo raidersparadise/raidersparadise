@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string("password", 60);
 
             $table->foreign("id_rol")
-                  ->references("id")
-                  ->on("rol");
+                  ->references("id_rol")
+                  ->on("rol")
+                  ->onDelete("cascade");
         });
     }
 
