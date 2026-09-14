@@ -2,54 +2,38 @@
 
 namespace App\Services;
 
-use App\Interfaces\ReporteInterface;
+use App\Models\Reporte;
 
 class ReporteService
 {
-    protected ReporteInterface $reporteRepository;
-
-    public function __construct(ReporteInterface $reporteRepository)
-    {
-        $this->reporteRepository = $reporteRepository;
-    }
-
     public function getAll()
     {
-        return $this->reporteRepository->getAll();
+        return Reporte::all();
     }
 
     public function getById(int $id)
     {
-        return $this->reporteRepository->getById($id);
+        return Reporte::findOrFail($id);
     }
 
     public function create(array $data)
     {
-        return $this->reporteRepository->create($data);
+        return Reporte::create($data);
     }
 
-    public function update(int $id, array $data)
+    public function update(array $data, int $id)
     {
-        return $this->reporteRepository->update($id, $data);
+        $reporte = Reporte::findOrFail($id);
+
+        $reporte->update($data);
+
+        return $reporte;
     }
 
     public function delete(int $id)
     {
-        return $this->reporteRepository->delete($id);
-    }
+        $reporte = Reporte::findOrFail($id);
 
-    public function getByUsuario(int $id_usuario)
-    {
-        return $this->reporteRepository->getByUsuario($id_usuario);
-    }
-
-    public function getByTipoReporte(string $tipo_reporte)
-    {
-        return $this->reporteRepository->getByTipoReporte($tipo_reporte);
-    }
-
-    public function getByFechaGeneracion(string $fecha_generacion)
-    {
-        return $this->reporteRepository->getByFechaGeneracion($fecha_generacion);
+        return $reporte->delete();
     }
 }

@@ -1,78 +1,16 @@
 <?php
 
-namespace App\Services;
+namespace App\Interfaces;
 
-use App\Interfaces\PqrInterface;
-use App\Models\Pqr;
-
-class PqrService implements PqrInterface
+interface PqrInterface
 {
-    // Obtener todas las PQR
-    public function getAll()
-    {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])->get();
-    }
+    public function getAll();
 
-    // Obtener una PQR por ID
-    public function getById(int $id)
-    {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])->findOrFail($id);
-    }
+    public function getById(int $id);
 
-    // Crear una PQR
-    public function create(array $datos)
-    {
-        return Pqr::create($datos);
-    }
+    public function create(array $data);
 
-    // Actualizar una PQR
-    public function update(array $datos, int $id)
-    {
-        $pqr = Pqr::findOrFail($id);
+    public function update(array $data, int $id);
 
-        $pqr->update($datos);
-
-        return $pqr->load([
-            'usuario',
-            'cliente'
-        ]);
-    }
-
-    // Eliminar una PQR
-    public function delete(int $id)
-    {
-        $pqr = Pqr::findOrFail($id);
-
-        $pqr->delete();
-
-        return true;
-    }
-
-    // Buscar PQR por usuario
-    public function getByUsuario(int $id_usuario)
-    {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])
-        ->where('id_usuario', $id_usuario)
-        ->get();
-    }
-
-    // Buscar PQR por estado
-    public function getByEstado(string $estado)
-    {
-        return Pqr::with([
-            'usuario',
-            'cliente'
-        ])
-        ->where('estado', $estado)
-        ->get();
-    }
+    public function delete(int $id);
 }

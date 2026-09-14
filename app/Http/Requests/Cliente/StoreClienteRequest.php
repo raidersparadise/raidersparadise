@@ -16,9 +16,9 @@ class StoreClienteRequest extends FormRequest
         return [
             'nombre_cliente' => 'required|string|max:40',
             'apellido_cliente' => 'required|string|max:40',
-            'email' => 'required|email|max:150|unique:cliente,email',
-            'telefono' => 'nullable|string|max:20',
-            'direccion' => 'nullable|string|max:100',
+            'email_cliente' => 'required|email|unique:cliente,email_cliente',
+            'telefono_cliente' => 'nullable|string|max:20',
+            'direccion_cliente' => 'nullable|string|max:100',
         ];
     }
 }

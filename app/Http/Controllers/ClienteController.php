@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\ClienteService;
-use Illuminate\Http\Request;
+use Illuminate\Http\Requests;
+use App\Http\Requests\Cliente\StoreClienteRequest;
 
 class ClienteController extends Controller
 {
@@ -33,19 +34,19 @@ class ClienteController extends Controller
     }
 
     // Crear cliente
-    public function store(Request $request)
+    public function store(StoreClienteRequest $request)
     {
         $datos = $request->validate([
             'nombre_cliente' => 'required|string|max:40',
             'apellido_cliente' => 'required|string|max:40',
-            'email' => 'required|email|max:150|unique:cliente,email',
-            'telefono' => 'nullable|string|max:20',
-            'direccion' => 'nullable|string|max:100',
+            'email_cliente' => 'required|email|max:150|unique:cliente,email_cliente',
+            'telefono_cliente' => 'nullable|string|max:20',
+            'direccion_cliente' => 'nullable|string|max:100',
         ]);
 
         return response()->json([
             'mensaje' => 'Cliente creado correctamente',
-            'datos' => $this->clienteService->create($datos)
+            'datos' => $this->clienteService->create($request->validated())
         ], 201);
     }
 
@@ -55,9 +56,9 @@ class ClienteController extends Controller
         $datos = $request->validate([
             'nombre_cliente' => 'sometimes|string|max:40',
             'apellido_cliente' => 'sometimes|string|max:40',
-            'email' => 'sometimes|email|max:150|unique:cliente,email,' . $id . ',id_cliente',
-            'telefono' => 'sometimes|nullable|string|max:20',
-            'direccion' => 'sometimes|nullable|string|max:100',
+            'email_cliente' => 'sometimes|email|max:150|unique:cliente,email_cliente,' . $id . ',id_cliente',
+            'telefono_cliente' => 'sometimes|nullable|string|max:20',
+            'direccion_cliente' => 'sometimes|nullable|string|max:100',
         ]);
 
         return response()->json([

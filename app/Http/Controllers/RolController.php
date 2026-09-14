@@ -41,15 +41,14 @@ class RolController extends Controller
         );
     }
 
-    public function update(Request $request, int $id)
-    {
+  public function update(Request $request, int $id){
         $data = $request->validate([
             'nombre_rol' => 'sometimes|string|max:40',
             'descripcion' => 'sometimes|string',
         ]);
 
         return response()->json(
-            $this->rolService->update($id, $data)
+          $this->rolService->update($data, $id)
         );
     }
 

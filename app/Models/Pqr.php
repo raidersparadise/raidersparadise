@@ -10,6 +10,8 @@ class Pqr extends Model
 
     protected $primaryKey = 'id_pqr';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'id_usuario',
         'id_cliente',

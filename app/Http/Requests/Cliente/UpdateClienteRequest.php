@@ -17,15 +17,15 @@ class UpdateClienteRequest extends FormRequest
         return [
             'nombre_cliente' => 'sometimes|string|max:40',
             'apellido_cliente' => 'sometimes|string|max:40',
-            'email' => [
+            'email_cliente' => [
                 'sometimes',
                 'email',
                 'max:150',
-                Rule::unique('cliente', 'email')
+                Rule::unique('cliente', 'email_cliente')
                     ->ignore($this->route('id'), 'id_cliente'),
             ],
-            'telefono' => 'nullable|string|max:20',
-            'direccion' => 'nullable|string|max:100',
+            'telefono_cliente' => 'nullable|string|max:20',
+            'direccion_cliente' => 'nullable|string|max:100',
         ];
     }
 }

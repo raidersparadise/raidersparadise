@@ -14,10 +14,10 @@ class StoreUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_rol' => 'required|integer|exists:rol,id_rol',
+            'id_rol' => 'required|exists:rol,id_rol',
             'nombre_usuario' => 'required|string|max:100',
             'apellido_usuario' => 'required|string|max:100',
-            'email' => 'required|email|max:150|unique:usuario,email',
+            'email_cliente' => 'required|email|max:150|unique:usuario,email_cliente',
             'password' => 'required|string|min:8|max:255',
         ];
     }

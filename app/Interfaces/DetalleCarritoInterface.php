@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface Detalle_carritoInterface extends BaseInterface
+interface DetalleCarritoInterface extends BaseInterface
 {
     // Buscar detalles por carrito
     public function getByCarrito(int $id_carrito);

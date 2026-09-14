@@ -5,26 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pedido extends Model
+class Producto extends Model
 {
     use HasFactory;
 
-    protected $table = 'pedidos';
+    protected $table = 'producto';
 
     protected $fillable = [
-        'cliente_id',
-        'fecha_pedido',
-        'estado',
-        'total',
+        'id_categoria',
+        'id_marca',
+        'id_proveedor',
+        'nombre_producto',
+        'descripcion_producto',
+        'precio_producto',
+        'estado_producto',
+        'imagen_producto',
+        'comentario_producto',
     ];
-
-    protected $casts = [
-        'fecha_pedido' => 'datetime',
-        'total' => 'decimal:2',
-    ];
-
-    public function cliente()
-    {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
-    }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('proveedor', function (Blueprint $table) {
             $table->id('id_proveedor');
             $table->string('nombre_proveedor', 40);
-            $table->integer('telefono_proveedor')->nullable();
+            $table->string('telefono_proveedor', 20);
             $table->string('direccion_proveedor', 100)->nullable();
             $table->string('email_proveedor', 100)->nullable();
             $table->timestamps();

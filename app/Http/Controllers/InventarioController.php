@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Services\InventarioService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Inventario\StoreInventarioRequest;
+use App\Http\Requests\Inventario\UpdateInventarioRequest;
 
 class InventarioController extends Controller
 {
-    protected InventarioService $inventarioService;
+    protected $inventarioService;
 
     public function __construct(InventarioService $inventarioService)
     {
@@ -16,43 +17,47 @@ class InventarioController extends Controller
 
     public function index()
     {
-        return response()->json(
-            $this->inventarioService->getAll()
+        $inventarios = $this->inventarioService->getAll();
+
+        return response()->json([
+            'success' => 'Inventarios consultados correctamente',
+            'data' => $inventarios
+        ], 200);
+    }
+
+    public function store(StoreInventarioRequest $datos)
+    {
+        $inventario = $this->inventarioService->create(
+            $datos->validated()
         );
+
+        return response()->json([
+            'success' => 'Inventario creado correctamente',
+            'datosInsertado' => $inventario
+        ], 201);
     }
 
     public function show(int $id)
     {
-        return response()->json(
-            $this->inventarioService->getById($id)
-        );
+        $inventario = $this->inventarioService->getById($id);
+
+        return response()->json([
+            'success' => 'Inventario encontrado correctamente',
+            'data' => $inventario
+        ], 200);
     }
 
-    public function store(Request $request)
+    public function update(UpdateInventarioRequest $datosActualizar, int $id)
     {
-        $data = $request->validate([
-            'cantidad_disponible' => 'required|integer|min:0',
-            'cantidad_minima' => 'required|integer|min:0',
-            'id_producto' => 'required|integer',
-        ]);
-
-        return response()->json(
-            $this->inventarioService->create($data),
-            201
+        $inventario = $this->inventarioService->update(
+            $datosActualizar->validated(),
+            $id
         );
-    }
 
-    public function update(Request $request, int $id)
-    {
-        $data = $request->validate([
-            'cantidad_disponible' => 'sometimes|integer|min:0',
-            'cantidad_minima' => 'sometimes|integer|min:0',
-            'id_producto' => 'sometimes|integer',
-        ]);
-
-        return response()->json(
-            $this->inventarioService->update($id, $data)
-        );
+        return response()->json([
+            'success' => 'Inventario actualizado correctamente',
+            'data' => $inventario
+        ], 200);
     }
 
     public function destroy(int $id)
@@ -60,28 +65,40 @@ class InventarioController extends Controller
         $this->inventarioService->delete($id);
 
         return response()->json([
-            'message' => 'Inventario eliminado correctamente'
-        ]);
+            'success' => 'Inventario eliminado correctamente'
+        ], 200);
     }
 
     public function getByCantidadDisponible(int $cantidad_disponible)
     {
-        return response()->json(
-            $this->inventarioService->getByCantidadDisponible($cantidad_disponible)
-        );
+        $inventarios = $this->inventarioService
+            ->getByCantidadDisponible($cantidad_disponible);
+
+        return response()->json([
+            'success' => 'Inventarios filtrados por cantidad disponible correctamente',
+            'data' => $inventarios
+        ], 200);
     }
 
     public function getByCantidadMinima(int $cantidad_minima)
     {
-        return response()->json(
-            $this->inventarioService->getByCantidadMinima($cantidad_minima)
-        );
+        $inventarios = $this->inventarioService
+            ->getByCantidadMinima($cantidad_minima);
+
+        return response()->json([
+            'success' => 'Inventarios filtrados por cantidad mínima correctamente',
+            'data' => $inventarios
+        ], 200);
     }
 
     public function getByProducto(int $id_producto)
     {
-        return response()->json(
-            $this->inventarioService->getByProducto($id_producto)
-        );
+        $inventarios = $this->inventarioService
+            ->getByProducto($id_producto);
+
+        return response()->json([
+            'success' => 'Inventarios filtrados por producto correctamente',
+            'data' => $inventarios
+        ], 200);
     }
 }
