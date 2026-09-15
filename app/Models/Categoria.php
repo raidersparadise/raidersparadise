@@ -26,5 +26,14 @@ class Categoria extends Model
             'id_categoria'
         );
     }
+    public function categoria(): BelongsTo
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria', 'id_categoria');
+    }
+
+    public function marca(): BelongsTo
+    {
+        return $this->belongsTo(Marca::class, 'id_marca', 'id_marca');
+    }
 }
 //pull

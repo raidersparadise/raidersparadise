@@ -1,0 +1,25 @@
+$kind: http-request
+description: Actualiza un registro. Completa el body JSON según las reglas de validación del recurso.
+url: "{{base_url}}/api/pqr/{{id}}"
+method: PUT
+headers:
+  Accept: application/json
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "id_usuario": 1,
+        "id_cliente": 1,
+        "descripcion_pqr": "Solicito apoyo sobre un pedido pendiente.",
+        "estado": "en proceso",
+        "fecha": "2026-09-14"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('La respuesta tiene un estado HTTP válido', function () {
+          pm.expect(pm.response.code).to.be.within(200, 499);
+      });
+    language: text/javascript
+order: 4000

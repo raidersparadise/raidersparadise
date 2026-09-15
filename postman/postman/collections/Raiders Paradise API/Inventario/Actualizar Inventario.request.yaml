@@ -1,0 +1,23 @@
+$kind: http-request
+description: Actualiza un registro. Completa el body JSON según las reglas de validación del recurso.
+url: "{{base_url}}/api/inventario/{{id}}"
+method: PUT
+headers:
+  Accept: application/json
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "cantidad_disponible": 12,
+        "cantidad_minima": 2,
+        "id_producto": 1
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('La respuesta tiene un estado HTTP válido', function () {
+          pm.expect(pm.response.code).to.be.within(200, 499);
+      });
+    language: text/javascript
+order: 4000

@@ -1,0 +1,14 @@
+$kind: http-request
+description: Obtiene todos los registros.
+url: "{{base_url}}/api/marca"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('La respuesta tiene un estado HTTP válido', function () {
+          pm.expect(pm.response.code).to.be.within(200, 499);
+      });
+    language: text/javascript
+order: 1000

@@ -24,7 +24,7 @@ class RolService implements RolInterface
 
     public function update(array $datos, int $id)
     {
-        $rol = Rol::findOrFail($id);
+        $rol = Rol::findOrFail($id); // SELECT * FROM rol WHERE id_rol = $id
 
         $rol->update($datos);
 
@@ -33,7 +33,7 @@ class RolService implements RolInterface
 
     public function delete(int $id)
     {
-        $rol = Rol::findOrFail($id);
+        $rol = Rol::findOrFail($id); // SELECT * FROM rol WHERE id_rol = $id
 
         return $rol->delete();
     }

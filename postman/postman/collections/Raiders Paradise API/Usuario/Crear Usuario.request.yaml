@@ -1,0 +1,25 @@
+$kind: http-request
+description: Crea un registro. Completa el body JSON según las reglas de validación del recurso.
+url: "{{base_url}}/api/usuario"
+method: POST
+headers:
+  Accept: application/json
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "id_rol": 1,
+        "nombre_usuario": "Ana",
+        "apellido_usuario": "García",
+        "email_cliente": "ana.garcia@example.com",
+        "password": "secret123"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('La respuesta tiene un estado HTTP válido', function () {
+          pm.expect(pm.response.code).to.be.within(200, 499);
+      });
+    language: text/javascript
+order: 2000

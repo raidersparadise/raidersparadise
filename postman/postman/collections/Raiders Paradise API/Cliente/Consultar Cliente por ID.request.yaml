@@ -1,0 +1,14 @@
+$kind: http-request
+description: Obtiene un registro por su identificador.
+url: "{{base_url}}/api/cliente/{{id}}"
+method: GET
+headers:
+  Accept: application/json
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('La respuesta tiene un estado HTTP válido', function () {
+          pm.expect(pm.response.code).to.be.within(200, 499);
+      });
+    language: text/javascript
+order: 3000

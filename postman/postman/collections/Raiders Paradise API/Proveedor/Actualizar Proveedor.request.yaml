@@ -1,0 +1,24 @@
+$kind: http-request
+description: Actualiza un registro. Completa el body JSON según las reglas de validación del recurso.
+url: "{{base_url}}/api/proveedor/{{id}}"
+method: PUT
+headers:
+  Accept: application/json
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "nombre_proveedor": "Distribuidora Central",
+        "telefono_proveedor": "3001111111",
+        "direccion_proveedor": "Cra 99 #10-20",
+        "email_proveedor": "proveedor@example.com"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('La respuesta tiene un estado HTTP válido', function () {
+          pm.expect(pm.response.code).to.be.within(200, 499);
+      });
+    language: text/javascript
+order: 4000
