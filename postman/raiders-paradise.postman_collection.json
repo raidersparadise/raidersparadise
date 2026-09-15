@@ -100,7 +100,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_rol\": \"Administrador\",\n    \"descripcion\": \"Acceso total al sistema\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -192,7 +192,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_rol\": \"Administrador\",\n    \"descripcion\": \"Acceso total al sistema con permisos administrativos\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -327,7 +327,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_rol\": 1,\n    \"nombre_usuario\": \"Ana\",\n    \"apellido_usuario\": \"García\",\n    \"email_cliente\": \"ana.garcia@example.com\",\n    \"password\": \"secret123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -419,7 +419,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_rol\": 1,\n    \"nombre_usuario\": \"Ana\",\n    \"apellido_usuario\": \"García Pérez\",\n    \"email_cliente\": \"ana.garcia@example.com\",\n    \"password\": \"secret1234\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -554,7 +554,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_usuario\": 1,\n    \"tipo_reporte\": \"ventas\",\n    \"fecha_generacion\": \"2026-09-14\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -646,7 +646,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_usuario\": 1,\n    \"tipo_reporte\": \"inventario\",\n    \"fecha_generacion\": \"2026-09-14\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -781,7 +781,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_cliente\": \"María\",\n    \"apellido_cliente\": \"López\",\n    \"email_cliente\": \"maria.lopez@example.com\",\n    \"telefono_cliente\": \"3001234567\",\n    \"direccion_cliente\": \"Cra 1 #23-45\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -873,7 +873,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_cliente\": \"María\",\n    \"apellido_cliente\": \"López\",\n    \"email_cliente\": \"maria.lopez@example.com\",\n    \"telefono_cliente\": \"3007654321\",\n    \"direccion_cliente\": \"Cra 1 #23-45\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1008,7 +1008,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_usuario\": 1,\n    \"id_cliente\": 1,\n    \"descripcion_pqr\": \"Solicito apoyo sobre un pedido.\",\n    \"estado\": \"recibida\",\n    \"fecha\": \"2026-09-14\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1100,7 +1100,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_usuario\": 1,\n    \"id_cliente\": 1,\n    \"descripcion_pqr\": \"Solicito apoyo sobre un pedido pendiente.\",\n    \"estado\": \"en proceso\",\n    \"fecha\": \"2026-09-14\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1235,7 +1235,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_categoria\": \"Ropa\",\n    \"descripcion_categoria\": \"Artículos de vestir y accesorios\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1327,7 +1327,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_categoria\": \"Ropa\",\n    \"descripcion_categoria\": \"Artículos de vestir, accesorios y uniformes\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1462,7 +1462,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_marca\": \"Nike\",\n    \"descripcion_marca\": \"Marca deportiva\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1554,7 +1554,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_marca\": \"Nike\",\n    \"descripcion_marca\": \"Marca deportiva internacional\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1689,7 +1689,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_proveedor\": \"Distribuidora Central\",\n    \"telefono_proveedor\": \"3000000000\",\n    \"direccion_proveedor\": \"Cra 99 #10-20\",\n    \"email_proveedor\": \"proveedor@example.com\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1781,7 +1781,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"nombre_proveedor\": \"Distribuidora Central\",\n    \"telefono_proveedor\": \"3001111111\",\n    \"direccion_proveedor\": \"Cra 99 #10-20\",\n    \"email_proveedor\": \"proveedor@example.com\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1916,7 +1916,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_categoria\": 1,\n    \"id_marca\": 1,\n    \"id_proveedor\": 1,\n    \"nombre_producto\": \"Camiseta Raiders\",\n    \"descripcion_producto\": \"Camiseta oficial del equipo.\",\n    \"precio_producto\": 45000,\n    \"estado_producto\": \"activo\",\n    \"imagen_producto\": \"https://example.com/camiseta.jpg\",\n    \"comentario_producto\": \"Talla M disponible\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2008,7 +2008,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_categoria\": 1,\n    \"id_marca\": 1,\n    \"id_proveedor\": 1,\n    \"nombre_producto\": \"Camiseta Raiders\",\n    \"descripcion_producto\": \"Camiseta oficial del equipo, edición 2026.\",\n    \"precio_producto\": 47000,\n    \"estado_producto\": \"activo\",\n    \"imagen_producto\": \"https://example.com/camiseta-edicion.jpg\",\n    \"comentario_producto\": \"Talla M y L disponibles\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2143,7 +2143,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_cliente\": 1,\n    \"fecha_agregado\": \"2026-09-14\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2235,7 +2235,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_cliente\": 1,\n    \"fecha_agregado\": \"2026-09-14\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2370,7 +2370,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_carrito\": 1,\n    \"id_producto\": 1,\n    \"cantidad\": 2,\n    \"precio_unitario\": 45000,\n    \"subtotal\": 90000\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2462,7 +2462,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"id_carrito\": 1,\n    \"id_producto\": 1,\n    \"cantidad\": 3,\n    \"precio_unitario\": 45000,\n    \"subtotal\": 135000\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2597,7 +2597,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"cantidad_disponible\": 10,\n    \"cantidad_minima\": 2,\n    \"id_producto\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2689,7 +2689,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"cantidad_disponible\": 12,\n    \"cantidad_minima\": 2,\n    \"id_producto\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2824,7 +2824,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"fecha\": \"2026-09-14\",\n    \"estado\": \"programado\",\n    \"total\": 90000,\n    \"id_cliente\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -2916,7 +2916,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"fecha\": \"2026-09-15\",\n    \"estado\": \"en_curso\",\n    \"total\": 100000,\n    \"id_cliente\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -3051,7 +3051,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"cantidad\": 2,\n    \"precio_unitario\": 45000,\n    \"sub_total\": 90000,\n    \"id_pedido\": 1,\n    \"id_producto\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -3143,7 +3143,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"cantidad\": 3,\n    \"precio_unitario\": 45000,\n    \"sub_total\": 135000,\n    \"id_pedido\": 1,\n    \"id_producto\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -3278,7 +3278,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"fecha_factura\": \"2026-09-14\",\n    \"total_factura\": 120000,\n    \"impuesto\": 10000,\n    \"estado_factura\": \"pagada\",\n    \"pago\": 120000,\n    \"metodo_pago\": \"tarjeta\",\n    \"id_pedido\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -3370,7 +3370,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{}",
+                            "raw": "{\n    \"fecha_factura\": \"2026-09-14\",\n    \"total_factura\": 125000,\n    \"impuesto\": 10000,\n    \"estado_factura\": \"pagada\",\n    \"pago\": 125000,\n    \"metodo_pago\": \"tarjeta\",\n    \"id_pedido\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"

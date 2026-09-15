@@ -16,9 +16,14 @@ class DetalleCarritoController extends Controller
 
     public function index()
     {
-        return response()->json(
-            $this->detalleCarritoService->index()
-        );
+        return response()->json([
+        'mensaje' => 'Detalles del carrito obtenidos correctamente',
+        'datos' => $this->detalleCarritoService->getAll()
+        ], 200);
+    }
+    public function getAll()
+    {
+        return DetalleCarrito::with(['carrito', 'producto'])->get();
     }
 
     public function store(Request $request)

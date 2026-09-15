@@ -1,0 +1,9 @@
+$kind: collection
+description: "Colección generada desde las rutas apiResource de Laravel. Base URL: http://127.0.0.1:8000"
+variables:
+  base_url: http://127.0.0.1:8000
+  id: "1"
+scripts:
+  - type: http:beforeRequest
+    code: "pm.request.headers.upsert({ key: 'Accept', value: 'application/json' });"
+    language: text/javascript

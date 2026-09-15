@@ -1,0 +1,29 @@
+$kind: http-request
+description: Crea un registro. Completa el body JSON según las reglas de validación del recurso.
+url: "{{base_url}}/api/producto"
+method: POST
+headers:
+  Accept: application/json
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "id_categoria": 1,
+        "id_marca": 1,
+        "id_proveedor": 1,
+        "nombre_producto": "Camiseta Raiders",
+        "descripcion_producto": "Camiseta oficial del equipo.",
+        "precio_producto": 45000,
+        "estado_producto": "activo",
+        "imagen_producto": "https://example.com/camiseta.jpg",
+        "comentario_producto": "Talla M disponible"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('La respuesta tiene un estado HTTP válido', function () {
+          pm.expect(pm.response.code).to.be.within(200, 499);
+      });
+    language: text/javascript
+order: 2000

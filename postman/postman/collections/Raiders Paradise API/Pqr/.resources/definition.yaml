@@ -1,0 +1,3 @@
+$kind: collection
+description: Operaciones CRUD para el recurso pqr.
+order: 5000

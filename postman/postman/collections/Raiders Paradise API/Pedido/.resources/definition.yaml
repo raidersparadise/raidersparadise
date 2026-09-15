@@ -1,0 +1,3 @@
+$kind: collection
+description: Operaciones CRUD para el recurso pedido.
+order: 13000

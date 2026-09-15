@@ -17,7 +17,7 @@ class StoreUsuarioRequest extends FormRequest
             'id_rol' => 'required|exists:rol,id_rol',
             'nombre_usuario' => 'required|string|max:100',
             'apellido_usuario' => 'required|string|max:100',
-            'email_cliente' => 'required|email|max:150|unique:usuario,email_cliente',
+            'email' => 'required|email|max:150|unique:usuario,email',
             'password' => 'required|string|min:8|max:255',
         ];
     }
