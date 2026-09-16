@@ -3,65 +3,56 @@
 namespace App\Services;
 
 use App\Interfaces\ClienteInterface;
-use App\Models\Cliente;
+use App\Repositories\ClienteRepository;
 
 class ClienteService implements ClienteInterface
 {
+    protected $clienteRepository;
+
+    public function __construct(ClienteRepository $clienteRepository)
+    {
+        $this->clienteRepository = $clienteRepository;
+    }
+
     // Obtener todos los clientes
     public function getAll()
     {
-        return Cliente::all();
+        return $this->clienteRepository->getAll();
     }
 
     // Obtener cliente por ID
     public function getById(int $id)
     {
-        return Cliente::findOrFail($id);
+        return $this->clienteRepository->getById($id);
     }
 
-    // Crear un cliente
+    // Crear cliente
     public function create(array $datos)
     {
-        return Cliente::create($datos);
+        return $this->clienteRepository->create($datos);
     }
 
-    // Actualizar un cliente
+    // Actualizar cliente
     public function update(array $datos, int $id)
     {
-        $cliente = Cliente::findOrFail($id);
-
-        $cliente->update($datos);
-
-        return $cliente;
+        return $this->clienteRepository->update($datos, $id);
     }
 
-    // Eliminar un cliente
+    // Eliminar cliente
     public function delete(int $id)
     {
-        $cliente = Cliente::findOrFail($id);
-
-        return $cliente->delete();
+        return $this->clienteRepository->delete($id);
     }
 
     // Buscar clientes por nombre
     public function getByName(string $nombre)
     {
-        return Cliente::where(
-            'nombre_cliente',
-            'LIKE',
-            '%' . $nombre . '%'
-        )->get();
+        return $this->clienteRepository->getByName($nombre);
     }
 
     // Buscar clientes por apellido
     public function getByLastname(string $apellido)
     {
-        return Cliente::where(
-            'apellido_cliente',
-            'LIKE',
-            '%' . $apellido . '%'
-        )->get();
+        return $this->clienteRepository->getByLastname($apellido);
     }
 }
-
-

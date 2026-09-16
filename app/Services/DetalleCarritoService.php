@@ -3,62 +3,63 @@
 namespace App\Services;
 
 use App\Interfaces\DetalleCarritoInterface;
-use App\Models\DetalleCarrito;
+use App\Repositories\DetalleCarritoRepository;
 
 class DetalleCarritoService implements DetalleCarritoInterface
 {
-    // Obtener todos los detalles del carrito
+    protected $detalleCarritoRepository;
+
+    public function __construct(
+        DetalleCarritoRepository $detalleCarritoRepository
+    ) {
+        $this->detalleCarritoRepository = $detalleCarritoRepository;
+    }
+
+    // Obtener todos los detalles
     public function getAll()
     {
-        return DetalleCarrito::all();
+        return $this->detalleCarritoRepository->getAll();
     }
 
     // Obtener detalle por ID
     public function getById(int $id)
     {
-        return DetalleCarrito::findOrFail($id);
+        return $this->detalleCarritoRepository->getById($id);
     }
 
-    // Crear detalle del carrito
+    // Crear detalle
     public function create(array $datos)
     {
-        return DetalleCarrito::create($datos);
+        return $this->detalleCarritoRepository->create($datos);
     }
 
-    // Actualizar detalle del carrito
+    // Actualizar detalle
     public function update(array $datos, int $id)
     {
-        $detalle = DetalleCarrito::findOrFail($id);
-
-        $detalle->update($datos);
-
-        return $detalle;
+        return $this->detalleCarritoRepository->update($datos, $id);
     }
 
-    // Eliminar detalle del carrito
+    // Eliminar detalle
     public function delete(int $id)
     {
-        $detalle = DetalleCarrito::findOrFail($id);
-
-        return $detalle->delete();
+        return $this->detalleCarritoRepository->delete($id);
     }
 
-    // Buscar detalles por carrito
+    // Buscar por carrito
     public function getByCarrito(int $id_carrito)
     {
-        return DetalleCarrito::where(
-            'id_carrito',
-            $id_carrito
-        )->get();
+        return $this->detalleCarritoRepository->getByCarrito($id_carrito);
     }
 
-    // Buscar detalles por producto
+    // Buscar por producto
     public function getByProducto(int $id_producto)
     {
-        return DetalleCarrito::where(
-            'id_producto',
-            $id_producto
-        )->get();
+        return $this->detalleCarritoRepository->getByProducto($id_producto);
+    }
+
+    // Obtener detalles con sus relaciones
+    public function getAllWithRelations()
+    {
+        return $this->detalleCarritoRepository->getAllWithRelations();
     }
 }
-
