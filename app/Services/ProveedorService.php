@@ -3,93 +3,59 @@
 namespace App\Services;
 
 use App\Interfaces\ProveedorInterface;
-use App\Models\Proveedor;
 
-class ProveedorService implements ProveedorInterface
+class ProveedorService
 {
-    // Obtener todos los proveedores
+    public function __construct(
+        private ProveedorInterface $proveedorRepository
+    ) {}
+
     public function getAll()
     {
-        return Proveedor::with('productos')->get();
+        return $this->proveedorRepository->getAll();
     }
 
-    // Obtener proveedor por ID
     public function getById(int $id)
     {
-        return Proveedor::with('productos')->findOrFail($id);
+        return $this->proveedorRepository->getById($id);
     }
 
-    // Crear un proveedor
     public function create(array $datos)
     {
-        return Proveedor::create($datos);
+        return $this->proveedorRepository->create($datos);
     }
 
-    // Actualizar un proveedor
     public function update(array $datos, int $id)
     {
-        $proveedor = Proveedor::findOrFail($id);
-
-        $proveedor->update($datos);
-
-        return $proveedor->load('productos');
+        return $this->proveedorRepository->update($datos, $id);
     }
 
-    // Eliminar un proveedor
     public function delete(int $id)
     {
-        $proveedor = Proveedor::findOrFail($id);
-
-        $proveedor->delete();
-
-        return true;
+        return $this->proveedorRepository->delete($id);
     }
 
-    // Buscar proveedor por nombre
     public function getByNombreProveedor(string $nombre_proveedor)
     {
-        return Proveedor::with('productos')
-            ->where(
-                'nombre_proveedor',
-                'LIKE',
-                '%' . $nombre_proveedor . '%'
-            )
-            ->get();
+        return $this->proveedorRepository
+            ->getByNombreProveedor($nombre_proveedor);
     }
 
-    // Buscar proveedor por teléfono
     public function getByTelefonoProveedor(string $telefono_proveedor)
     {
-        return Proveedor::with('productos')
-            ->where(
-                'telefono_proveedor',
-                'LIKE',
-                '%' . $telefono_proveedor . '%'
-            )
-            ->get();
+        return $this->proveedorRepository
+            ->getByTelefonoProveedor($telefono_proveedor);
     }
 
-    // Buscar proveedor por dirección
     public function getByDireccionProveedor(string $direccion_proveedor)
     {
-        return Proveedor::with('productos')
-            ->where(
-                'direccion_proveedor',
-                'LIKE',
-                '%' . $direccion_proveedor . '%'
-            )
-            ->get();
+        return $this->proveedorRepository
+            ->getByDireccionProveedor($direccion_proveedor);
     }
 
-    // Buscar proveedor por email
     public function getByEmailProveedor(string $email_proveedor)
     {
-        return Proveedor::with('productos')
-            ->where(
-                'email_proveedor',
-                'LIKE',
-                '%' . $email_proveedor . '%'
-            )
-            ->get();
+        return $this->proveedorRepository
+            ->getByEmailProveedor($email_proveedor);
     }
 }
