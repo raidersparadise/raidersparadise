@@ -23,6 +23,10 @@ class Usuario extends Model
         'password',
     ];
 
+    protected $hidden = [
+        'password',
+    ];
+
     public function rol()
     {
         return $this->belongsTo(

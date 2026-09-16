@@ -13,6 +13,15 @@ use App\Services\CategoriaService;
 use App\Interfaces\InventarioInterface;
 use App\Services\InventarioService;
 
+use App\Interfaces\UsuarioInterface;
+use App\Repositories\UsuarioRepository;
+
+use App\Interfaces\ProveedorInterface;
+use App\Repositories\ProveedorRepository;
+
+use App\Interfaces\ProductoInterface;
+use App\Repositories\ProductoRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -30,6 +39,21 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             InventarioInterface::class,
             InventarioService::class
+        );
+
+        $this->app->bind(
+            UsuarioInterface::class,
+            UsuarioRepository::class
+        );
+
+        $this->app->bind(
+            ProveedorInterface::class,
+            ProveedorRepository::class
+        );
+
+        $this->app->bind(
+            ProductoInterface::class,
+            ProductoRepository::class
         );
     }
 

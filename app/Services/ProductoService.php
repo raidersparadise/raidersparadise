@@ -3,165 +3,89 @@
 namespace App\Services;
 
 use App\Interfaces\ProductoInterface;
-use App\Models\Producto;
 
-class ProductoService implements ProductoInterface
+class ProductoService
 {
-    // Obtener todos los productos
+    public function __construct(
+        private ProductoInterface $productoRepository
+    ) {}
+
     public function getAll()
     {
-        return Producto::with([
-            'categoria',
-            'marca',
-            'proveedor',
-            'inventario'
-        ])->get();
+        return $this->productoRepository->getAll();
     }
 
-    // Obtener producto por ID
     public function getById(int $id)
     {
-        return Producto::with([
-            'categoria',
-            'marca',
-            'proveedor',
-            'inventario'
-        ])->findOrFail($id);
+        return $this->productoRepository->getById($id);
     }
 
-    // Crear un producto
     public function create(array $datos)
     {
-        return Producto::create($datos);
+        return $this->productoRepository->create($datos);
     }
 
-    // Actualizar un producto
     public function update(array $datos, int $id)
     {
-        $producto = Producto::findOrFail($id);
-
-        $producto->update($datos);
-
-        return $producto->load([
-            'categoria',
-            'marca',
-            'proveedor',
-            'inventario'
-        ]);
+        return $this->productoRepository->update($datos, $id);
     }
 
-    // Eliminar un producto
     public function delete(int $id)
     {
-        $producto = Producto::findOrFail($id);
-
-        $producto->delete();
-
-        return true;
+        return $this->productoRepository->delete($id);
     }
 
-    // Buscar productos por nombre
     public function getByNombreProducto(string $nombre_producto)
     {
-        return Producto::with([
-            'categoria',
-            'marca',
-            'proveedor',
-            'inventario'
-        ])
-        ->where(
-            'nombre_producto',
-            'LIKE',
-            '%' . $nombre_producto . '%'
-        )
-        ->get();
+        return $this->productoRepository
+            ->getByNombreProducto($nombre_producto);
     }
 
-    // Buscar productos por descripción
     public function getByDescripcionProducto(string $descripcion_producto)
     {
-        return Producto::where(
-            'descripcion_producto',
-            'LIKE',
-            '%' . $descripcion_producto . '%'
-        )->get();
+        return $this->productoRepository
+            ->getByDescripcionProducto($descripcion_producto);
     }
 
-    // Buscar productos por precio
     public function getByPrecioProducto(float $precio_producto)
     {
-        return Producto::where(
-            'precio_producto',
-            $precio_producto
-        )->get();
+        return $this->productoRepository
+            ->getByPrecioProducto($precio_producto);
     }
 
-    // Buscar productos por estado
     public function getByEstadoProducto(string $estado_producto)
     {
-        return Producto::where(
-            'estado_producto',
-            'LIKE',
-            '%' . $estado_producto . '%'
-        )->get();
+        return $this->productoRepository
+            ->getByEstadoProducto($estado_producto);
     }
 
-    // Buscar productos por imagen
     public function getByImagenProducto(string $imagen_producto)
     {
-        return Producto::where(
-            'imagen_producto',
-            'LIKE',
-            '%' . $imagen_producto . '%'
-        )->get();
+        return $this->productoRepository
+            ->getByImagenProducto($imagen_producto);
     }
 
-    // Buscar productos por comentario
     public function getByComentarioProducto(string $comentario_producto)
     {
-        return Producto::where(
-            'comentario_producto',
-            'LIKE',
-            '%' . $comentario_producto . '%'
-        )->get();
+        return $this->productoRepository
+            ->getByComentarioProducto($comentario_producto);
     }
 
-    // Buscar productos por categoría
     public function getByCategoria(int $id_categoria)
     {
-        return Producto::with([
-            'categoria',
-            'marca',
-            'proveedor',
-            'inventario'
-        ])
-        ->where('id_categoria', $id_categoria)
-        ->get();
+        return $this->productoRepository
+            ->getByCategoria($id_categoria);
     }
 
-    // Buscar productos por marca
     public function getByMarca(int $id_marca)
     {
-        return Producto::with([
-            'categoria',
-            'marca',
-            'proveedor',
-            'inventario'
-        ])
-        ->where('id_marca', $id_marca)
-        ->get();
+        return $this->productoRepository
+            ->getByMarca($id_marca);
     }
 
-    // Buscar productos por proveedor
     public function getByProveedor(int $id_proveedor)
     {
-        return Producto::with([
-            'categoria',
-            'marca',
-            'proveedor',
-            'inventario'
-        ])
-        ->where('id_proveedor', $id_proveedor)
-        ->get();
+        return $this->productoRepository
+            ->getByProveedor($id_proveedor);
     }
 }

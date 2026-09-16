@@ -14,10 +14,13 @@ class StoreProveedorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre_proveedor' => 'required|string|max:150',
+            'nombre_proveedor' => 'required|string|max:40',
+
             'telefono_proveedor' => 'required|string|max:20',
-            'direccion_proveedor' => 'required|string|max:255',
-            'email_proveedor' => 'required|email|max:150|unique:proveedor,email_proveedor',
+
+            'direccion_proveedor' => 'nullable|string|max:100',
+
+            'email_proveedor' => 'nullable|email|max:100|unique:proveedor,email_proveedor',
         ];
     }
 }

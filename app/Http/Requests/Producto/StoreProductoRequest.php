@@ -15,14 +15,22 @@ class StoreProductoRequest extends FormRequest
     {
         return [
             'id_categoria' => 'required|integer|exists:categoria,id_categoria',
+
             'id_marca' => 'required|integer|exists:marca,id_marca',
+
             'id_proveedor' => 'required|integer|exists:proveedor,id_proveedor',
-            'nombre_producto' => 'required|string|max:150',
-            'descripcion_producto' => 'required|string|max:500',
+
+            'nombre_producto' => 'required|string|max:40',
+
+            'descripcion_producto' => 'nullable|string|max:255',
+
             'precio_producto' => 'required|numeric|min:0',
+
             'estado_producto' => 'required|string|max:50',
+
             'imagen_producto' => 'nullable|string|max:255',
-            'comentario_producto' => 'nullable|string|max:500',
+
+            'comentario_producto' => 'nullable|string|max:255',
         ];
     }
 }
