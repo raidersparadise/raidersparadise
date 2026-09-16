@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\ClienteService;
-use Illuminate\Http\Requests;
 use App\Http\Requests\Cliente\StoreClienteRequest;
+use App\Http\Requests\Cliente\UpdateClienteRequest;
 
 class ClienteController extends Controller
 {
@@ -18,52 +18,49 @@ class ClienteController extends Controller
     // Obtener todos los clientes
     public function index()
     {
+        $clientes = $this->clienteService->getAll();
+
         return response()->json([
             'mensaje' => 'Clientes obtenidos correctamente',
-            'datos' => $this->clienteService->getAll()
+            'datos' => $clientes
         ], 200);
     }
 
     // Obtener cliente por ID
     public function show(int $id)
     {
+        $cliente = $this->clienteService->getById($id);
+
         return response()->json([
             'mensaje' => 'Cliente obtenido correctamente',
-            'datos' => $this->clienteService->getById($id)
+            'datos' => $cliente
         ], 200);
     }
 
     // Crear cliente
     public function store(StoreClienteRequest $request)
     {
-        $datos = $request->validate([
-            'nombre_cliente' => 'required|string|max:40',
-            'apellido_cliente' => 'required|string|max:40',
-            'email_cliente' => 'required|email|max:150|unique:cliente,email_cliente',
-            'telefono_cliente' => 'nullable|string|max:20',
-            'direccion_cliente' => 'nullable|string|max:100',
-        ]);
+        $cliente = $this->clienteService->create(
+            $request->validated()
+        );
 
         return response()->json([
             'mensaje' => 'Cliente creado correctamente',
-            'datos' => $this->clienteService->create($request->validated())
+            'datos' => $cliente
         ], 201);
     }
 
     // Actualizar cliente
-    public function update(Request $request, int $id)
+    public function update(UpdateClienteRequest $request, int $id)
     {
-        $datos = $request->validate([
-            'nombre_cliente' => 'sometimes|string|max:40',
-            'apellido_cliente' => 'sometimes|string|max:40',
-            'email_cliente' => 'sometimes|email|max:150|unique:cliente,email_cliente,' . $id . ',id_cliente',
-            'telefono_cliente' => 'sometimes|nullable|string|max:20',
-            'direccion_cliente' => 'sometimes|nullable|string|max:100',
-        ]);
+        $cliente = $this->clienteService->update(
+            $request->validated(),
+            $id
+        );
 
         return response()->json([
             'mensaje' => 'Cliente actualizado correctamente',
-            'datos' => $this->clienteService->update($datos, $id)
+            'datos' => $cliente
         ], 200);
     }
 
@@ -80,18 +77,22 @@ class ClienteController extends Controller
     // Buscar clientes por nombre
     public function getByName(string $nombre)
     {
+        $clientes = $this->clienteService->getByName($nombre);
+
         return response()->json([
             'mensaje' => 'Clientes filtrados por nombre correctamente',
-            'datos' => $this->clienteService->getByName($nombre)
+            'datos' => $clientes
         ], 200);
     }
 
     // Buscar clientes por apellido
     public function getByLastname(string $apellido)
     {
+        $clientes = $this->clienteService->getByLastname($apellido);
+
         return response()->json([
             'mensaje' => 'Clientes filtrados por apellido correctamente',
-            'datos' => $this->clienteService->getByLastname($apellido)
+            'datos' => $clientes
         ], 200);
     }
 }

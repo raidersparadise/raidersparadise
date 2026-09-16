@@ -68,4 +68,14 @@ class CarritoController extends Controller
             'success' => 'Carrito eliminado correctamente'
         ], 200);
     }
+
+    public function getByCliente(int $id_cliente)
+    {
+        $carritos = $this->carritoService->getByCliente($id_cliente);
+
+        return response()->json([
+            'success' => 'Carritos del cliente obtenidos correctamente',
+            'data' => $carritos
+        ], 200);
+    }
 }

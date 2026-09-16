@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ReporteController;
@@ -21,18 +22,77 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::apiResource('rol', RolController::class);
-Route::apiResource('usuario', UsuarioController::class);
-Route::apiResource('reporte', ReporteController::class);
-Route::apiResource('cliente', ClienteController::class);
-Route::apiResource('pqr', PqrController::class);
-Route::apiResource('categoria', CategoriaController::class);
-Route::apiResource('marca', MarcaController::class);
-Route::apiResource('proveedor', ProveedorController::class);
-Route::apiResource('producto', ProductoController::class);
+Route::get(
+    'carrito/cliente/{id_cliente}',
+    [CarritoController::class, 'getByCliente']
+);
+
 Route::apiResource('carrito', CarritoController::class);
+
+Route::get(
+    'cliente/nombre/{nombre}',
+    [ClienteController::class, 'getByName']
+);
+
+Route::get(
+    'cliente/apellido/{apellido}',
+    [ClienteController::class, 'getByLastname']
+);
+
+Route::apiResource('cliente', ClienteController::class);
+
+Route::get(
+    'detalle_carrito/carrito/{id_carrito}',
+    [DetalleCarritoController::class, 'getByCarrito']
+);
+
+Route::get(
+    'detalle_carrito/producto/{id_producto}',
+    [DetalleCarritoController::class, 'getByProducto']
+);
+
 Route::apiResource('detalle_carrito', DetalleCarritoController::class);
+
+Route::get(
+    'pedido/estado/{estado}',
+    [PedidoController::class, 'getByEstado']
+);
+
+Route::get(
+    'pedido/fecha/{fecha}',
+    [PedidoController::class, 'getByFecha']
+);
+
+Route::get(
+    'pedido/total/{total}',
+    [PedidoController::class, 'getByTotal']
+);
+
+Route::get(
+    'pedido/cliente/{id_cliente}',
+    [PedidoController::class, 'getByCliente']
+);
+
+Route::apiResource('rol', RolController::class);
+
+Route::apiResource('usuario', UsuarioController::class);
+
+Route::apiResource('reporte', ReporteController::class);
+
+Route::apiResource('pqr', PqrController::class);
+
+Route::apiResource('categoria', CategoriaController::class);
+
+Route::apiResource('marca', MarcaController::class);
+
+Route::apiResource('proveedor', ProveedorController::class);
+
+Route::apiResource('producto', ProductoController::class);
+
 Route::apiResource('inventario', InventarioController::class);
+
 Route::apiResource('pedido', PedidoController::class);
+
 Route::apiResource('detalle_pedido', DetallePedidoController::class);
+
 Route::apiResource('factura', FacturaController::class);

@@ -3,67 +3,59 @@
 namespace App\Services;
 
 use App\Interfaces\PedidoInterface;
-use App\Models\Pedido;
+use App\Repositories\PedidoRepository;
 
 class PedidoService implements PedidoInterface
 {
-    // Obtener todos los pedidos
+    protected $pedidoRepository;
+
+    public function __construct(PedidoRepository $pedidoRepository)
+    {
+        $this->pedidoRepository = $pedidoRepository;
+    }
+
     public function getAll()
     {
-        return Pedido::all();
+        return $this->pedidoRepository->getAll();
     }
 
-    // Obtener pedido por ID
     public function getById(int $id)
     {
-        return Pedido::findOrFail($id);
+        return $this->pedidoRepository->getById($id);
     }
 
-    // Crear pedido
     public function create(array $datos)
     {
-        return Pedido::create($datos);
+        return $this->pedidoRepository->create($datos);
     }
 
-    // Actualizar pedido
     public function update(array $datos, int $id)
     {
-        $pedido = Pedido::findOrFail($id);
-
-        $pedido->update($datos);
-
-        return $pedido;
+        return $this->pedidoRepository->update($datos, $id);
     }
 
-    // Eliminar pedido
     public function delete(int $id)
     {
-        $pedido = Pedido::findOrFail($id);
-
-        return $pedido->delete();
+        return $this->pedidoRepository->delete($id);
     }
 
-    // Buscar pedidos por estado
     public function getByEstado(string $estado)
     {
-        return Pedido::where('estado', $estado)->get();
+        return $this->pedidoRepository->getByEstado($estado);
     }
 
-    // Buscar pedidos por fecha
     public function getByFecha(string $fecha)
     {
-        return Pedido::whereDate('fecha', $fecha)->get();
+        return $this->pedidoRepository->getByFecha($fecha);
     }
 
-    // Buscar pedidos por total
     public function getByTotal(float $total)
     {
-        return Pedido::where('total', $total)->get();
+        return $this->pedidoRepository->getByTotal($total);
     }
 
-    // Buscar pedidos por cliente
     public function getByCliente(int $id_cliente)
     {
-        return Pedido::where('id_cliente', $id_cliente)->get();
+        return $this->pedidoRepository->getByCliente($id_cliente);
     }
 }

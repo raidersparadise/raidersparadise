@@ -14,47 +14,83 @@ class DetalleCarritoController extends Controller
         $this->detalleCarritoService = $detalleCarritoService;
     }
 
+    // Obtener todos
     public function index()
     {
+        $detalles = $this->detalleCarritoService->getAll();
+
         return response()->json([
-        'mensaje' => 'Detalles del carrito obtenidos correctamente',
-        'datos' => $this->detalleCarritoService->getAll()
+            'mensaje' => 'Detalles del carrito obtenidos correctamente',
+            'datos' => $detalles
         ], 200);
     }
-    public function getAll()
+
+    // Obtener por ID
+    public function show(int $id)
     {
-        return DetalleCarrito::with(['carrito', 'producto'])->get();
+        $detalle = $this->detalleCarritoService->getById($id);
+
+        return response()->json([
+            'mensaje' => 'Detalle del carrito encontrado correctamente',
+            'datos' => $detalle
+        ], 200);
     }
 
+    // Crear
     public function store(Request $request)
     {
         $data = $request->all();
 
-        return response()->json(
-            $this->detalleCarritoService->create($data)
-        );
+        $detalle = $this->detalleCarritoService->create($data);
+
+        return response()->json([
+            'mensaje' => 'Detalle del carrito creado correctamente',
+            'datos' => $detalle
+        ], 201);
     }
 
-    public function show($id)
-    {
-        return response()->json(
-            $this->detalleCarritoService->show($id)
-        );
-    }
-
-    public function update(Request $request, $id)
+    // Actualizar
+    public function update(Request $request, int $id)
     {
         $data = $request->all();
 
-        return response()->json(
-            $this->detalleCarritoService->update($data, $id)
-        );
+        $detalle = $this->detalleCarritoService->update($data, $id);
+
+        return response()->json([
+            'mensaje' => 'Detalle del carrito actualizado correctamente',
+            'datos' => $detalle
+        ], 200);
     }
 
-    public function destroy($id)
+    // Eliminar
+    public function destroy(int $id)
     {
-        return response()->json(
-            $this->detalleCarritoService->delete($id)
-        );
+        $this->detalleCarritoService->delete($id);
+
+        return response()->json([
+            'mensaje' => 'Detalle del carrito eliminado correctamente'
+        ], 200);
+    }
+
+    // Buscar por carrito
+    public function getByCarrito(int $id_carrito)
+    {
+        $detalles = $this->detalleCarritoService->getByCarrito($id_carrito);
+
+        return response()->json([
+            'mensaje' => 'Detalles del carrito obtenidos correctamente',
+            'datos' => $detalles
+        ], 200);
+    }
+
+    // Buscar por producto
+    public function getByProducto(int $id_producto)
+    {
+        $detalles = $this->detalleCarritoService->getByProducto($id_producto);
+
+        return response()->json([
+            'mensaje' => 'Detalles del producto obtenidos correctamente',
+            'datos' => $detalles
+        ], 200);
     }
 }

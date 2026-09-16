@@ -3,49 +3,50 @@
 namespace App\Services;
 
 use App\Interfaces\CarritoInterface;
-use App\Models\Carrito;
+use App\Repositories\CarritoRepository;
 
 class CarritoService implements CarritoInterface
 {
+    protected $carritoRepository;
+
+    public function __construct(CarritoRepository $carritoRepository)
+    {
+        $this->carritoRepository = $carritoRepository;
+    }
+
     // Obtener todos los carritos
     public function getAll()
     {
-        return Carrito::all();
+        return $this->carritoRepository->getAll();
     }
 
     // Obtener carrito por ID
     public function getById(int $id)
     {
-        return Carrito::findOrFail($id);
+        return $this->carritoRepository->getById($id);
     }
 
     // Crear carrito
     public function create(array $datos)
     {
-        return Carrito::create($datos);
+        return $this->carritoRepository->create($datos);
     }
 
     // Actualizar carrito
     public function update(array $datos, int $id)
     {
-        $carrito = Carrito::findOrFail($id);
-
-        $carrito->update($datos);
-
-        return $carrito;
+        return $this->carritoRepository->update($datos, $id);
     }
 
     // Eliminar carrito
     public function delete(int $id)
     {
-        $carrito = Carrito::findOrFail($id);
-
-        return $carrito->delete();
+        return $this->carritoRepository->delete($id);
     }
 
     // Buscar carritos por cliente
     public function getByCliente(int $id_cliente)
     {
-        return Carrito::where('id_cliente', $id_cliente)->get();
+        return $this->carritoRepository->getByCliente($id_cliente);
     }
 }

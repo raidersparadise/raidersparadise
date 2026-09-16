@@ -18,13 +18,27 @@ class DetalleCarrito extends Model
         'subtotal',
     ];
 
+    protected $casts = [
+        'cantidad' => 'integer',
+        'precio_unitario' => 'decimal:2',
+        'subtotal' => 'decimal:2',
+    ];
+
     public function carrito()
     {
-        return $this->belongsTo(Carrito::class, 'id_carrito', 'id_carrito');
+        return $this->belongsTo(
+            Carrito::class,
+            'id_carrito',
+            'id_carrito'
+        );
     }
 
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'id_producto', 'id_producto');
+        return $this->belongsTo(
+            Producto::class,
+            'id_producto',
+            'id_producto'
+        );
     }
 }
