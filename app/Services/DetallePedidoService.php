@@ -3,109 +3,75 @@
 namespace App\Services;
 
 use App\Interfaces\DetallePedidoInterface;
-use App\Models\DetallePedido;
+use App\Repositories\DetallePedidoRepository;
 
 class DetallePedidoService implements DetallePedidoInterface
 {
-    // Obtener todos los detalles de pedido
+    protected $detallePedidoRepository;
+
+    public function __construct(
+        DetallePedidoRepository $detallePedidoRepository
+    ) {
+        $this->detallePedidoRepository = $detallePedidoRepository;
+    }
+
     public function getAll()
     {
-        return DetallePedido::with([
-            'pedido',
-            'producto'
-        ])->get();
+        return $this->detallePedidoRepository
+            ->getAllWithRelations();
     }
 
-    // Obtener un detalle de pedido por ID
     public function getById(int $id)
     {
-        return DetallePedido::with([
-            'pedido',
-            'producto'
-        ])->findOrFail($id);
+        return $this->detallePedidoRepository
+            ->getByIdWithRelations($id);
     }
 
-    // Crear un detalle de pedido
     public function create(array $datos)
     {
-        return DetallePedido::create($datos);
+        return $this->detallePedidoRepository
+            ->create($datos);
     }
 
-    // Actualizar un detalle de pedido
     public function update(array $datos, int $id)
     {
-        $detallePedido = DetallePedido::findOrFail($id);
-
-        $detallePedido->update($datos);
-
-        return $detallePedido->load([
-            'pedido',
-            'producto'
-        ]);
+        return $this->detallePedidoRepository
+            ->update($datos, $id);
     }
 
-    // Eliminar un detalle de pedido
     public function delete(int $id)
     {
-        $detallePedido = DetallePedido::findOrFail($id);
-
-        $detallePedido->delete();
-
-        return true;
+        return $this->detallePedidoRepository
+            ->delete($id);
     }
 
-    // Buscar por cantidad
     public function getByCantidad(int $cantidad)
     {
-        return DetallePedido::with([
-            'pedido',
-            'producto'
-        ])
-        ->where('cantidad', $cantidad)
-        ->get();
+        return $this->detallePedidoRepository
+            ->getByCantidad($cantidad);
     }
 
-    // Buscar por precio unitario
     public function getByPrecioUnitario(float $precio_unitario)
     {
-        return DetallePedido::with([
-            'pedido',
-            'producto'
-        ])
-        ->where('precio_unitario', $precio_unitario)
-        ->get();
+        return $this->detallePedidoRepository
+            ->getByPrecioUnitario($precio_unitario);
     }
 
-    // Buscar por subtotal
     public function getBySubTotal(float $sub_total)
     {
-        return DetallePedido::with([
-            'pedido',
-            'producto'
-        ])
-        ->where('sub_total', $sub_total)
-        ->get();
+        return $this->detallePedidoRepository
+            ->getBySubTotal($sub_total);
     }
 
-    // Buscar por pedido
     public function getByPedido(int $id_pedido)
     {
-        return DetallePedido::with([
-            'pedido',
-            'producto'
-        ])
-        ->where('id_pedido', $id_pedido)
-        ->get();
+        return $this->detallePedidoRepository
+            ->getByPedido($id_pedido);
     }
 
-    // Buscar por producto
     public function getByProducto(int $id_producto)
     {
-        return DetallePedido::with([
-            'pedido',
-            'producto'
-        ])
-        ->where('id_producto', $id_producto)
-        ->get();
+        return $this->detallePedidoRepository
+            ->getByProducto($id_producto);
     }
 }
