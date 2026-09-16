@@ -3,89 +3,86 @@
 namespace App\Services;
 
 use App\Interfaces\FacturaInterface;
-use App\Models\Factura;
+use App\Repositories\FacturaRepository;
 
 class FacturaService implements FacturaInterface
 {
+    protected $facturaRepository;
+
+    public function __construct(FacturaRepository $facturaRepository)
+    {
+        $this->facturaRepository = $facturaRepository;
+    }
+
     public function getAll()
     {
-        return Factura::with('pedido')->get();
+        return $this->facturaRepository
+            ->getAllWithPedido();
     }
 
     public function getById(int $id)
     {
-        return Factura::with('pedido')->findOrFail($id);
+        return $this->facturaRepository
+            ->getByIdWithPedido($id);
     }
 
     public function create(array $datos)
     {
-        return Factura::create($datos);
+        return $this->facturaRepository
+            ->create($datos);
     }
 
     public function update(array $datos, int $id)
     {
-        $factura = Factura::findOrFail($id);
-
-        $factura->update($datos);
-
-        return $factura->load('pedido');
+        return $this->facturaRepository
+            ->update($datos, $id);
     }
 
     public function delete(int $id)
     {
-        $factura = Factura::findOrFail($id);
-
-        $factura->delete();
-
-        return true;
+        return $this->facturaRepository
+            ->delete($id);
     }
 
     public function getByFechaFactura(string $fecha_factura)
     {
-        return Factura::with('pedido')
-            ->where('fecha_factura', 'LIKE', '%' . $fecha_factura . '%')
-            ->get();
+        return $this->facturaRepository
+            ->getByFechaFactura($fecha_factura);
     }
 
     public function getByTotalFactura(float $total_factura)
     {
-        return Factura::with('pedido')
-            ->where('total_factura', $total_factura)
-            ->get();
+        return $this->facturaRepository
+            ->getByTotalFactura($total_factura);
     }
 
     public function getByImpuesto(float $impuesto)
     {
-        return Factura::with('pedido')
-            ->where('impuesto', $impuesto)
-            ->get();
+        return $this->facturaRepository
+            ->getByImpuesto($impuesto);
     }
 
     public function getByEstadoFactura(string $estado_factura)
     {
-        return Factura::with('pedido')
-            ->where('estado_factura', 'LIKE', '%' . $estado_factura . '%')
-            ->get();
+        return $this->facturaRepository
+            ->getByEstadoFactura($estado_factura);
     }
 
     public function getByPago(float $pago)
     {
-        return Factura::with('pedido')
-            ->where('pago', $pago)
-            ->get();
+        return $this->facturaRepository
+            ->getByPago($pago);
     }
 
     public function getByMetodoPago(string $metodo_pago)
     {
-        return Factura::with('pedido')
-            ->where('metodo_pago', 'LIKE', '%' . $metodo_pago . '%')
-            ->get();
+        return $this->facturaRepository
+            ->getByMetodoPago($metodo_pago);
     }
 
     public function getByPedido(int $id_pedido)
     {
-        return Factura::with('pedido')
-            ->where('id_pedido', $id_pedido)
-            ->get();
+        return $this->facturaRepository
+            ->getByPedido($id_pedido);
     }
 }

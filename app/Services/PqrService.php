@@ -2,38 +2,40 @@
 
 namespace App\Services;
 
-use App\Models\Pqr;
+use App\Interfaces\PqrInterface;
+use App\Repositories\PqrRepository;
 
-class PqrService
+class PqrService implements PqrInterface
 {
+    protected $pqrRepository;
+
+    public function __construct(PqrRepository $pqrRepository)
+    {
+        $this->pqrRepository = $pqrRepository;
+    }
+
     public function getAll()
     {
-        return Pqr::all();
+        return $this->pqrRepository->getAll();
     }
 
     public function getById(int $id)
     {
-        return Pqr::findOrFail($id);
+        return $this->pqrRepository->getById($id);
     }
 
     public function create(array $data)
     {
-        return Pqr::create($data);
+        return $this->pqrRepository->create($data);
     }
 
     public function update(array $data, int $id)
     {
-        $pqr = Pqr::findOrFail($id);
-
-        $pqr->update($data);
-
-        return $pqr;
+        return $this->pqrRepository->update($data, $id);
     }
 
     public function delete(int $id)
     {
-        $pqr = Pqr::findOrFail($id);
-
-        return $pqr->delete();
+        return $this->pqrRepository->delete($id);
     }
 }

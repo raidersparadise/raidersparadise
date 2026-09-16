@@ -3,61 +3,53 @@
 namespace App\Services;
 
 use App\Interfaces\MarcaInterface;
-use App\Models\Marca;
+use App\Repositories\MarcaRepository;
 
 class MarcaService implements MarcaInterface
 {
-    // Obtener todas las marcas
+    protected $marcaRepository;
+
+    public function __construct(MarcaRepository $marcaRepository)
+    {
+        $this->marcaRepository = $marcaRepository;
+    }
+
     public function getAll()
     {
-        return Marca::with('productos')->get();
+        return $this->marcaRepository->getAllWithProductos();
     }
 
-    // Obtener una marca por ID
     public function getById(int $id)
     {
-        return Marca::with('productos')->findOrFail($id);
+        return $this->marcaRepository->getByIdWithProductos($id);
     }
 
-    // Crear una marca
     public function create(array $datos)
     {
-        return Marca::create($datos);
+        return $this->marcaRepository->create($datos);
     }
 
-    // Actualizar una marca
     public function update(array $datos, int $id)
     {
-        $marca = Marca::findOrFail($id);
-
-        $marca->update($datos);
-
-        return $marca->load('productos');
+        return $this->marcaRepository->update($datos, $id);
     }
 
-    // Eliminar una marca
     public function delete(int $id)
     {
-        $marca = Marca::findOrFail($id);
-
-        $marca->delete();
-
-        return true;
+        return $this->marcaRepository->delete($id);
     }
 
-    // Buscar marca por nombre
     public function getByNombreMarca(string $nombre_marca)
     {
-        return Marca::with('productos')
-            ->where('nombre_marca', 'like', '%' . $nombre_marca . '%')
-            ->get();
+        return $this->marcaRepository->getByNombreMarca(
+            $nombre_marca
+        );
     }
 
-    // Buscar marca por descripción
     public function getByDescripcionMarca(string $descripcion_marca)
     {
-        return Marca::with('productos')
-            ->where('descripcion_marca', 'like', '%' . $descripcion_marca . '%')
-            ->get();
+        return $this->marcaRepository->getByDescripcionMarca(
+            $descripcion_marca
+        );
     }
 }
