@@ -16,16 +16,18 @@ class RolController extends Controller
 
     public function index()
     {
-        return response()->json(
-            $this->rolService->getAll()
-        );
+        return response()->json([
+            'success' => 'Roles consultados correctamente',
+            'data' => $this->rolService->getAll()
+        ]);
     }
 
     public function show(int $id)
     {
-        return response()->json(
-            $this->rolService->getById($id)
-        );
+        return response()->json([
+            'success' => 'Rol encontrado correctamente',
+            'data' => $this->rolService->getById($id)
+        ]);
     }
 
     public function store(Request $request)
@@ -35,10 +37,10 @@ class RolController extends Controller
             'descripcion' => 'required|string',
         ]);
 
-        return response()->json(
-            $this->rolService->create($data),
-            201
-        );
+        return response()->json([
+            'success' => 'Rol creado correctamente',
+            'data' => $this->rolService->create($data)
+        ], 201);
     }
 
   public function update(Request $request, int $id){
@@ -47,9 +49,10 @@ class RolController extends Controller
             'descripcion' => 'sometimes|string',
         ]);
 
-        return response()->json(
-          $this->rolService->update($data, $id)
-        );
+        return response()->json([
+          'success' => 'Rol actualizado correctamente',
+          'data' => $this->rolService->update($data, $id)
+        ]);
     }
 
     public function destroy(int $id)
@@ -57,21 +60,23 @@ class RolController extends Controller
         $this->rolService->delete($id);
 
         return response()->json([
-            'message' => 'Rol eliminado correctamente'
+            'success' => 'Rol eliminado correctamente'
         ]);
     }
 
     public function getByNombreRol(string $nombre_rol)
     {
-        return response()->json(
-            $this->rolService->getByNombreRol($nombre_rol)
-        );
+        return response()->json([
+            'success' => 'Roles filtrados por nombre correctamente',
+            'data' => $this->rolService->getByNombreRol($nombre_rol)
+        ]);
     }
 
     public function getByDescripcion(string $descripcion)
     {
-        return response()->json(
-            $this->rolService->getByDescripcion($descripcion)
-        );
+        return response()->json([
+            'success' => 'Roles filtrados por descripción correctamente',
+            'data' => $this->rolService->getByDescripcion($descripcion)
+        ]);
     }
 }

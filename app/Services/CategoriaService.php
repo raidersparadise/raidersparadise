@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\CategoriaInterface;
+use App\Models\Categoria;
 
 class CategoriaService implements CategoriaInterface
 {

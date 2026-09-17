@@ -16,16 +16,18 @@ class ReporteController extends Controller
 
     public function index()
     {
-        return response()->json(
-            $this->reporteService->getAll()
-        );
+        return response()->json([
+            'success' => 'Reportes consultados correctamente',
+            'data' => $this->reporteService->getAll()
+        ]);
     }
 
     public function show(int $id)
     {
-        return response()->json(
-            $this->reporteService->getById($id)
-        );
+        return response()->json([
+            'success' => 'Reporte encontrado correctamente',
+            'data' => $this->reporteService->getById($id)
+        ]);
     }
 
     public function store(Request $request)
@@ -36,10 +38,10 @@ class ReporteController extends Controller
             'fecha_generacion' => 'required|date',
         ]);
 
-        return response()->json(
-            $this->reporteService->create($data),
-            201
-        );
+        return response()->json([
+            'success' => 'Reporte creado correctamente',
+            'data' => $this->reporteService->create($data)
+        ], 201);
     }
 
     public function update(Request $request, int $id)
@@ -50,9 +52,10 @@ class ReporteController extends Controller
             'fecha_generacion' => 'sometimes|date',
         ]);
 
-        return response()->json(
-            $this->reporteService->update($data, $id)
-        );
+        return response()->json([
+            'success' => 'Reporte actualizado correctamente',
+            'data' => $this->reporteService->update($data, $id)
+        ]);
     }
 
     public function destroy(int $id)
@@ -60,28 +63,31 @@ class ReporteController extends Controller
         $this->reporteService->delete($id);
 
         return response()->json([
-            'message' => 'Reporte eliminado correctamente'
+            'success' => 'Reporte eliminado correctamente',
         ]);
     }
 
     public function getByUsuario(int $id_usuario)
     {
-        return response()->json(
-            $this->reporteService->getByUsuario($id_usuario)
-        );
+        return response()->json([
+            'success' => 'Reportes filtrados por usuario correctamente',
+            'data' => $this->reporteService->getByUsuario($id_usuario)
+        ]);
     }
 
     public function getByTipoReporte(string $tipo_reporte)
     {
-        return response()->json(
-            $this->reporteService->getByTipoReporte($tipo_reporte)
-        );
+        return response()->json([
+            'success' => 'Reportes filtrados por tipo correctamente',
+            'data' => $this->reporteService->getByTipoReporte($tipo_reporte)
+        ]);
     }
 
     public function getByFechaGeneracion(string $fecha_generacion)
     {
-        return response()->json(
-            $this->reporteService->getByFechaGeneracion($fecha_generacion)
-        );
+        return response()->json([
+            'success' => 'Reportes filtrados por fecha correctamente',
+            'data' => $this->reporteService->getByFechaGeneracion($fecha_generacion)
+        ]);
     }
 }
