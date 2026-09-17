@@ -5,13 +5,16 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Interfaces\RolInterface;
-use App\Services\RolService;
+use App\Repositories\RolRepository;
+
+use App\Interfaces\ReporteInterface;
+use App\Repositories\ReporteRepository;
 
 use App\Interfaces\CategoriaInterface;
-use App\Services\CategoriaService;
+use App\Repositories\CategoriaRepository;
 
 use App\Interfaces\InventarioInterface;
-use App\Services\InventarioService;
+use App\Repositories\InventarioRepository;
 
 use App\Interfaces\UsuarioInterface;
 use App\Repositories\UsuarioRepository;
@@ -28,17 +31,22 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             RolInterface::class,
-            RolService::class
+            RolRepository::class
+        );
+
+        $this->app->bind(
+            ReporteInterface::class,
+            ReporteRepository::class
         );
 
         $this->app->bind(
             CategoriaInterface::class,
-            CategoriaService::class
+            CategoriaRepository::class
         );
 
         $this->app->bind(
             InventarioInterface::class,
-            InventarioService::class
+            InventarioRepository::class
         );
 
         $this->app->bind(
