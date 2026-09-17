@@ -21,7 +21,7 @@ class ClienteController extends Controller
         $clientes = $this->clienteService->getAll();
 
         return response()->json([
-            'mensaje' => 'Clientes obtenidos correctamente',
+            'success' => 'Clientes obtenidos correctamente',
             'datos' => $clientes
         ], 200);
     }
@@ -32,7 +32,7 @@ class ClienteController extends Controller
         $cliente = $this->clienteService->getById($id);
 
         return response()->json([
-            'mensaje' => 'Cliente obtenido correctamente',
+            'success' => 'Cliente obtenido correctamente',
             'datos' => $cliente
         ], 200);
     }
@@ -45,7 +45,7 @@ class ClienteController extends Controller
         );
 
         return response()->json([
-            'mensaje' => 'Cliente creado correctamente',
+            'success' => 'Cliente creado correctamente',
             'datos' => $cliente
         ], 201);
     }
@@ -59,7 +59,7 @@ class ClienteController extends Controller
         );
 
         return response()->json([
-            'mensaje' => 'Cliente actualizado correctamente',
+            'success' => 'Cliente actualizado correctamente',
             'datos' => $cliente
         ], 200);
     }
@@ -80,7 +80,7 @@ class ClienteController extends Controller
         $clientes = $this->clienteService->getByName($nombre);
 
         return response()->json([
-            'mensaje' => 'Clientes filtrados por nombre correctamente',
+            'success' => 'Clientes filtrados por nombre correctamente',
             'datos' => $clientes
         ], 200);
     }
@@ -91,7 +91,7 @@ class ClienteController extends Controller
         $clientes = $this->clienteService->getByLastname($apellido);
 
         return response()->json([
-            'mensaje' => 'Clientes filtrados por apellido correctamente',
+            'success' => 'Clientes filtrados por apellido correctamente',
             'datos' => $clientes
         ], 200);
     }
