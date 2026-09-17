@@ -3,56 +3,47 @@
 namespace App\Services;
 
 use App\Interfaces\RolInterface;
-use App\Models\Rol;
 
 class RolService implements RolInterface
 {
+    public function __construct(
+        private RolInterface $rolRepository
+    ) {}
+
     public function getAll()
     {
-        return Rol::all();
+        return $this->rolRepository->getAll();
     }
 
     public function getById(int $id)
     {
-        return Rol::findOrFail($id);
+        return $this->rolRepository->getById($id);
     }
 
-    public function create(array $data)
+    public function create(array $datos)
     {
-        return Rol::create($data);
+        return $this->rolRepository->create($datos);
     }
 
     public function update(array $datos, int $id)
     {
-        $rol = Rol::findOrFail($id); // SELECT * FROM rol WHERE id_rol = $id
-
-        $rol->update($datos);
-
-        return $rol;
+        return $this->rolRepository->update($datos, $id);
     }
 
     public function delete(int $id)
     {
-        $rol = Rol::findOrFail($id); // SELECT * FROM rol WHERE id_rol = $id
-
-        return $rol->delete();
+        return $this->rolRepository->delete($id);
     }
 
     public function getByNombreRol(string $nombre_rol)
     {
-        return Rol::where(
-            'nombre_rol',
-            'like',
-            '%' . $nombre_rol . '%'
-        )->get();
+        return $this->rolRepository
+            ->getByNombreRol($nombre_rol);
     }
 
     public function getByDescripcion(string $descripcion)
     {
-        return Rol::where(
-            'descripcion',
-            'like',
-            '%' . $descripcion . '%'
-        )->get();
+        return $this->rolRepository
+            ->getByDescripcion($descripcion);
     }
 }

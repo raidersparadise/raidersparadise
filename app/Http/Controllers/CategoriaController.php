@@ -49,7 +49,7 @@ class CategoriaController extends Controller
         ]);
 
         return response()->json(
-            $this->categoriaService->update($id, $data)
+            $this->categoriaService->update($data, $id)
         );
     }
 

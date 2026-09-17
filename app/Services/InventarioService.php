@@ -2,71 +2,48 @@
 
 namespace App\Services;
 
-use App\Interfaces\InventarioInterface;
-use App\Models\Inventario;
+use App\Interfaces\CategoriaInterface;
 
-class InventarioService implements InventarioInterface
+class CategoriaService implements CategoriaInterface
 {
+    public function __construct(
+        private CategoriaInterface $categoriaRepository
+    ) {}
+
     public function getAll()
     {
-        return Inventario::with('producto')->get();
+        return $this->categoriaRepository->getAll();
     }
 
     public function getById(int $id)
     {
-        return Inventario::with('producto')->findOrFail($id);
+        return $this->categoriaRepository->getById($id);
     }
 
     public function create(array $datos)
     {
-        return Inventario::create($datos);
+        return $this->categoriaRepository->create($datos);
     }
 
     public function update(array $datos, int $id)
     {
-        $inventario = Inventario::findOrFail($id);
-
-        $inventario->update($datos);
-
-        return $inventario->load('producto');
+        return $this->categoriaRepository->update($datos, $id);
     }
 
     public function delete(int $id)
     {
-        $inventario = Inventario::findOrFail($id);
-
-        $inventario->delete();
-
-        return true;
+        return $this->categoriaRepository->delete($id);
     }
 
-    public function getByCantidadDisponible(int $cantidad_disponible)
+    public function getByNombreCategoria(string $nombre_categoria)
     {
-        return Inventario::with('producto')
-            ->where(
-                'cantidad_disponible',
-                $cantidad_disponible
-            )
-            ->get();
+        return $this->categoriaRepository
+            ->getByNombreCategoria($nombre_categoria);
     }
 
-    public function getByCantidadMinima(int $cantidad_minima)
+    public function getByDescripcionCategoria(string $descripcion_categoria)
     {
-        return Inventario::with('producto')
-            ->where(
-                'cantidad_minima',
-                $cantidad_minima
-            )
-            ->get();
-    }
-
-    public function getByProducto(int $id_producto)
-    {
-        return Inventario::with('producto')
-            ->where(
-                'id_producto',
-                $id_producto
-            )
-            ->get();
+        return $this->categoriaRepository
+            ->getByDescripcionCategoria($descripcion_categoria);
     }
 }

@@ -51,7 +51,7 @@ class ReporteController extends Controller
         ]);
 
         return response()->json(
-            $this->reporteService->update($id, $data)
+            $this->reporteService->update($data, $id)
         );
     }
 

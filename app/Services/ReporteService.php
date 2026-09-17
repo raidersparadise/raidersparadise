@@ -2,38 +2,54 @@
 
 namespace App\Services;
 
-use App\Models\Reporte;
+use App\Interfaces\ReporteInterface;
 
-class ReporteService
+class ReporteService implements ReporteInterface
 {
+    public function __construct(
+        private ReporteInterface $reporteRepository
+    ) {}
+
     public function getAll()
     {
-        return Reporte::all();
+        return $this->reporteRepository->getAll();
     }
 
     public function getById(int $id)
     {
-        return Reporte::findOrFail($id);
+        return $this->reporteRepository->getById($id);
     }
 
-    public function create(array $data)
+    public function create(array $datos)
     {
-        return Reporte::create($data);
+        return $this->reporteRepository->create($datos);
     }
 
-    public function update(array $data, int $id)
+    public function update(array $datos, int $id)
     {
-        $reporte = Reporte::findOrFail($id);
-
-        $reporte->update($data);
-
-        return $reporte;
+        return $this->reporteRepository->update($datos, $id);
     }
 
     public function delete(int $id)
     {
-        $reporte = Reporte::findOrFail($id);
+        return $this->reporteRepository->delete($id);
+    }
 
-        return $reporte->delete();
+    public function getByUsuario(int $id_usuario)
+    {
+        return $this->reporteRepository
+            ->getByUsuario($id_usuario);
+    }
+
+    public function getByTipoReporte(string $tipo_reporte)
+    {
+        return $this->reporteRepository
+            ->getByTipoReporte($tipo_reporte);
+    }
+
+    public function getByFechaGeneracion(string $fecha_generacion)
+    {
+        return $this->reporteRepository
+            ->getByFechaGeneracion($fecha_generacion);
     }
 }
