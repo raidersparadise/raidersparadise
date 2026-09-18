@@ -15,6 +15,7 @@ return new class extends Migration
         $table->string('email_cliente');
         $table->string('telefono_cliente');
         $table->string('direccion_cliente');
+        $table->softDeletes();
         
     });
     }

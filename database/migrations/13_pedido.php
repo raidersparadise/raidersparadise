@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum("estado", ["programado","en_curso","Entregado","cancelado"]);
             $table->decimal("total", 10,2);
             $table->timestamps();
+            $table->softDeletes();
 
         $table->unsignedBigInteger("id_cliente");
 		$table->foreign("id_cliente")->references("id_cliente")->on("cliente")->onDelete("cascade");
