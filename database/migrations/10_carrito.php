@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign("id_cliente")->references("id_cliente")->on("cliente")->onDelete("cascade");
             $table->date("fecha_agregado");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
