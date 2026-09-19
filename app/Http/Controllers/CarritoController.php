@@ -47,17 +47,29 @@ class CarritoController extends Controller
         ], 200);
     }
 
-    public function update(UpdateCarritoRequest $datosActualizar, int $id)
+    public function update(UpdateCarritoRequest $request, int $id)
     {
-        $carrito = $this->carritoService->update(
-            $datosActualizar->validated(),
-            $id
-        );
+        $data = $request->validated();
+
+        $resultado = $this->carritoService->update($data, $id);
+
+        if ($resultado === null) {
+            return response()->json([
+                'message' => 'Carrito no encontrado'
+            ], 404);
+        }
+
+        if ($resultado['ya_actualizado'] === true) {
+            return response()->json([
+                'message' => 'El carrito ya se encuentra actualizado',
+                'data' => $resultado['carrito']
+            ]);
+        }
 
         return response()->json([
-            'success' => 'Carrito actualizado correctamente',
-            'data' => $carrito
-        ], 200);
+            'message' => 'Carrito actualizado correctamente',
+            'data' => $resultado['carrito']
+        ]);
     }
 
     public function destroy(int $id)

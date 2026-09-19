@@ -18,4 +18,16 @@ class UpdateCategoriaRequest extends FormRequest
             'descripcion_categoria' => 'sometimes|nullable|string|max:255',
         ];
     }
+
+
+    public function messages(): array
+    {
+        return [
+            'nombre_categoria.string' => 'El nombre de la categoría debe ser una cadena de texto.',
+            'nombre_categoria.max' => 'El nombre de la categoría no debe exceder los 40 caracteres.',
+
+            'descripcion_categoria.string' => 'La descripción de la categoría debe ser una cadena de texto.',
+            'descripcion_categoria.max' => 'La descripción de la categoría no debe exceder los 255 caracteres.',
+        ];
+    }
 }

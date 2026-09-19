@@ -50,18 +50,31 @@ class DetallePedidoController extends Controller
     }
 
     public function update(
-        UpdateDetallePedidoRequest $datosActualizar,
+        UpdateDetallePedidoRequest $request,
         int $id
     ) {
-        $detalle = $this->detallePedidoService->update(
-            $datosActualizar->validated(),
+        $resultado = $this->detallePedidoService->update(
+            $request->validated(),
             $id
         );
 
+        if ($resultado === null) {
+            return response()->json([
+                'message' => 'Detalle de pedido no encontrado'
+            ], 404);
+        }
+
+        if ($resultado['ya_actualizado'] === true) {
+            return response()->json([
+                'message' => 'El detalle del pedido ya se encuentra actualizado',
+                'data' => $resultado['detalle']
+            ]);
+        }
+
         return response()->json([
-            'success' => 'Detalle de pedido actualizado correctamente',
-            'data' => $detalle
-        ], 200);
+            'message' => 'Detalle de pedido actualizado correctamente',
+            'data' => $resultado['detalle']
+        ]);
     }
 
     public function destroy(int $id)

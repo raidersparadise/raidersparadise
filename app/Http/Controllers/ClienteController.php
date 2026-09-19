@@ -53,15 +53,27 @@ class ClienteController extends Controller
     // Actualizar cliente
     public function update(UpdateClienteRequest $request, int $id)
     {
-        $cliente = $this->clienteService->update(
-            $request->validated(),
-            $id
-        );
+        $data = $request->validated();
+
+        $resultado = $this->clienteService->update($data, $id);
+
+        if ($resultado === null) {
+            return response()->json([
+                'message' => 'Cliente no encontrado'
+            ], 404);
+        }
+
+        if ($resultado['ya_actualizado'] === true) {
+            return response()->json([
+                'message' => 'El cliente ya se encuentra actualizado',
+                'data' => $resultado['cliente']
+            ]);
+        }
 
         return response()->json([
-            'success' => 'Cliente actualizado correctamente',
-            'datos' => $cliente
-        ], 200);
+            'message' => 'Cliente actualizado correctamente',
+            'data' => $resultado['cliente']
+        ]);
     }
 
     // Eliminar cliente

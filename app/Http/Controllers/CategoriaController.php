@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\CategoriaService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Categoria\StoreCategoriaRequest;
+use App\Http\Requests\Categoria\UpdateCategoriaRequest;
 
 class CategoriaController extends Controller
 {
@@ -43,51 +44,53 @@ class CategoriaController extends Controller
     /**
      * Crear una nueva categoría.
      */
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'nombre_categoria' => 'required|string|max:40|unique:categoria,nombre_categoria',
-            'descripcion_categoria' => 'nullable|string|max:255',
-        ]);
-
-        $categoria = $this->categoriaService->create($data);
+    public function store(StoreCategoriaRequest $request)
+    {   
+        $data = $request->validated();
 
         return response()->json([
             'success' => 'Categoría creada correctamente',
-            'datosInsertado' => $categoria
+            'data' => $this->categoriaService->create($data)
         ], 201);
     }
 
-    /**
-     * Actualizar una categoría.
-     */
-    public function update(Request $request, int $id)
+    public function update(UpdateCategoriaRequest $request, int $id)
     {
-        $data = $request->validate([
-            'nombre_categoria' => 'required|string|max:40|unique:categoria,nombre_categoria',
-            'descripcion_categoria' => 'nullable|string|max:255',
-        ]);
+        $data = $request->validated();
 
-        $categoria = $this->categoriaService->update($data, $id);
+        $resultado = $this->categoriaService->update($data, $id);
+
+        if ($resultado === null) {
+            return response()->json([
+                'message' => 'Categoría no encontrada'
+            ], 404);
+        }
+
+        if ($resultado['ya_actualizado'] === true) {
+            return response()->json([
+                'message' => 'La categoría ya se encuentra actualizada',
+                'data' => $resultado['categoria']
+            ]);
+        }
 
         return response()->json([
-            'success' => 'Categoría actualizada correctamente',
-            'data' => $categoria
-        ], 200);
+            'message' => 'Categoría actualizada correctamente',
+            'data' => $resultado['categoria']
+        ]);
     }
 
     /**
      * Eliminar una categoría.
      */
     public function destroy(int $id)
-{
-    $resultado = $this->categoriaService->delete($id);
+    {
+        $resultado = $this->categoriaService->delete($id);
 
-    return $this->respuestaEliminacion(
-        $resultado,
-        'Categoría'
-    );
-}
+        return $this->respuestaEliminacion(
+            $resultado,
+            'Categoría'
+        );
+    }
 
     /**
      * Buscar categorías por nombre.

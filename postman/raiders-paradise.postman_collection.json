@@ -327,7 +327,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"id_rol\": 1,\n    \"nombre_usuario\": \"Ana\",\n    \"apellido_usuario\": \"García\",\n    \"email_cliente\": \"ana.garcia@example.com\",\n    \"password\": \"secret123\"\n}",
+                            "raw": "{\n    \"id_rol\": 1,\n    \"nombre_usuario\": \"Ana\",\n    \"apellido_usuario\": \"García\",\n    \"email\": \"ana.garcia@example.com\",\n    \"password\": \"secret123\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
