@@ -33,7 +33,7 @@ class RolController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nombre_rol' => 'required|string|max:40',
+            'nombre_rol' => 'required|string|max:40|unique:rol,nombre_rol',
             'descripcion' => 'required|string',
         ]);
 
@@ -45,7 +45,7 @@ class RolController extends Controller
 
   public function update(Request $request, int $id){
         $data = $request->validate([
-            'nombre_rol' => 'sometimes|string|max:40',
+            'nombre_rol' => 'sometimes|string|max:40|unique:rol,nombre_rol',
             'descripcion' => 'sometimes|string',
         ]);
 

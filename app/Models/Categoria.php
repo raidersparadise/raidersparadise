@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Categoria extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'categoria';
 
@@ -18,6 +19,10 @@ class Categoria extends Model
         'descripcion_categoria',
     ];
 
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
+
     public function productos()
     {
         return $this->hasMany(
@@ -26,14 +31,4 @@ class Categoria extends Model
             'id_categoria'
         );
     }
-    public function categoria(): BelongsTo
-    {
-        return $this->belongsTo(Categoria::class, 'id_categoria', 'id_categoria');
-    }
-
-    public function marca(): BelongsTo
-    {
-        return $this->belongsTo(Marca::class, 'id_marca', 'id_marca');
-    }
 }
-//pull
