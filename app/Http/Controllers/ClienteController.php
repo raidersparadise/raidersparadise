@@ -65,28 +65,14 @@ class ClienteController extends Controller
     }
 
     // Eliminar cliente
-    public function destroy($id)
+    public function destroy(int $id)
 {
     $resultado = $this->clienteService->delete($id);
 
-    if ($resultado['status'] === 'deleted') {
-        return response()->json([
-            'success' => true,
-            'message' => 'Dato eliminado correctamente'
-        ], 200);
-    }
-
-    if ($resultado['status'] === 'already_deleted') {
-        return response()->json([
-            'success' => false,
-            'message' => 'Dato eliminado'
-        ], 410);
-    }
-
-    return response()->json([
-        'success' => false,
-        'message' => 'Dato no encontrado'
-    ], 404);
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Cliente'
+    );
 }
 
     // Buscar clientes por nombre

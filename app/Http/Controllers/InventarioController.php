@@ -62,11 +62,12 @@ class InventarioController extends Controller
 
     public function destroy(int $id)
     {
-        $this->inventarioService->delete($id);
+        $resultado = $this->inventarioService->delete($id);
 
-        return response()->json([
-            'success' => 'Inventario eliminado correctamente'
-        ], 200);
+        return $this->respuestaEliminacion(
+            $resultado,
+            'Inventario'
+        );
     }
 
     public function getByCantidadDisponible(int $cantidad_disponible)

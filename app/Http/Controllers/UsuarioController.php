@@ -76,13 +76,14 @@ class UsuarioController extends Controller
      * Eliminar un usuario.
      */
     public function destroy(int $id)
-    {
-        $this->usuarioService->delete($id);
+{
+    $resultado = $this->usuarioService->delete($id);
 
-        return response()->json([
-            'success' => 'Usuario eliminado correctamente'
-        ], 200);
-    }
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Usuario'
+    );
+}
 
     /**
      * Buscar usuarios por nombre.

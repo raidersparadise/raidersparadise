@@ -76,26 +76,12 @@ class FacturaController extends Controller
      * Eliminar una factura.
      */
     public function destroy(int $id)
-    {
-        $resultado = $this->facturaService->delete($id);
+{
+    $resultado = $this->facturaService->delete($id);
 
-        if ($resultado['status'] === 'deleted') {
-            return response()->json([
-                'success' => true,
-                'message' => 'Factura eliminado correctamente'
-            ], 200);
-        }
-
-        if ($resultado['status'] === 'already_deleted') {
-            return response()->json([
-            'success' => false,
-            'message' => 'Factura eliminada'
-            ], 410);
-        }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Factura no encontrado'
-        ], 404);
-    }
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Factura'
+    );
+}
 }

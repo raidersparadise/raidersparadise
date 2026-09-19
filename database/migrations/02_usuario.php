@@ -6,27 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
     public function up(): void
     {
         Schema::create('usuario', function (Blueprint $table) {
-            $table->id("id_usuario");
-            $table->unsignedBigInteger("id_rol");
-            $table->string("nombre_usuario", 40);
-            $table->string("apellido_usuario", 40);
-            $table->string("email", 100)->unique();
-            $table->string("password", 60);
+            $table->id('id_usuario');
 
-            $table->foreign("id_rol")
-                  ->references("id_rol")
-                  ->on("rol")
-                  ->onDelete("cascade");
+            $table->unsignedBigInteger('id_rol');
+
+            $table->string('nombre_usuario', 40);
+            $table->string('apellido_usuario', 40);
+            $table->string('email', 100)->unique();
+            $table->string('password', 60);
+
+            $table->foreign('id_rol')
+                ->references('id_rol')
+                ->on('rol')
+                ->onDelete('cascade');
+
+        
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('usuario');

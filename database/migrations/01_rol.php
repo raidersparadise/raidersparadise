@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("nombre_rol", 40)->unique();
             $table->text("descripcion");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

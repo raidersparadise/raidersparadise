@@ -74,26 +74,12 @@ class MarcaController extends Controller
      * Eliminar una marca.
      */
     public function destroy(int $id)
-    {
-        $resultado = $this->marcaService->delete($id);
+{
+    $resultado = $this->marcaService->delete($id);
 
-        if ($resultado['status'] === 'deleted') {
-            return response()->json([
-                'success' => true,
-                'message' => 'Marca eliminada correctamente'
-            ], 200);
-        }
-
-        if ($resultado['status'] === 'already_deleted') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Marca eliminada'
-            ], 410);
-        }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Marca no encontrada'
-        ], 404);
-    }   
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Marca'
+    );
+}   
 }

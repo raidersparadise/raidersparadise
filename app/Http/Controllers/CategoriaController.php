@@ -80,13 +80,14 @@ class CategoriaController extends Controller
      * Eliminar una categoría.
      */
     public function destroy(int $id)
-    {
-        $this->categoriaService->delete($id);
+{
+    $resultado = $this->categoriaService->delete($id);
 
-        return response()->json([
-            'success' => 'Categoría eliminada correctamente'
-        ], 200);
-    }
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Categoría'
+    );
+}
 
     /**
      * Buscar categorías por nombre.
