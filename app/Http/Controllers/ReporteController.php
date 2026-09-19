@@ -59,13 +59,14 @@ class ReporteController extends Controller
     }
 
     public function destroy(int $id)
-    {
-        $this->reporteService->delete($id);
+{
+    $resultado = $this->reporteService->delete($id);
 
-        return response()->json([
-            'success' => 'Reporte eliminado correctamente',
-        ]);
-    }
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Reporte'
+    );
+}
 
     public function getByUsuario(int $id_usuario)
     {

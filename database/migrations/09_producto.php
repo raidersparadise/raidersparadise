@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('producto', function (Blueprint $table) {
@@ -26,24 +23,22 @@ return new class extends Migration
             $table->string('comentario_producto', 255)->nullable();
 
             $table->foreign('id_categoria')
-                  ->references('id_categoria')
-                  ->on('categoria');
+                ->references('id_categoria')
+                ->on('categoria');
 
             $table->foreign('id_marca')
-                  ->references('id_marca')
-                  ->on('marca');
+                ->references('id_marca')
+                ->on('marca');
 
             $table->foreign('id_proveedor')
-                  ->references('id_proveedor')
-                  ->on('proveedor');
-                  
+                ->references('id_proveedor')
+                ->on('proveedor');
+
             $table->timestamps();
+            
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('producto');

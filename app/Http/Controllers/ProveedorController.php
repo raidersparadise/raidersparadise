@@ -76,13 +76,14 @@ class ProveedorController extends Controller
      * Eliminar un proveedor.
      */
     public function destroy(int $id)
-    {
-        $this->proveedorService->delete($id);
+{
+    $resultado = $this->proveedorService->delete($id);
 
-        return response()->json([
-            'success' => 'Proveedor eliminado correctamente'
-        ], 200);
-    }
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Proveedor'
+    );
+}
 
     /**
      * Buscar proveedores por nombre.

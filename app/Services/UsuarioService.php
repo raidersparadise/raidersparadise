@@ -39,13 +39,7 @@ class UsuarioService
 
     public function delete(int $id)
     {
-    $usuario = $this->usuarioRepository->getById($id);
-
-        if (!$usuario) {
-            throw new ModelNotFoundException(
-            'Usuario no encontrado'
-        );
-        }
+        
 
         return $this->usuarioRepository->delete($id);
     }

@@ -6,26 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('inventario', function (Blueprint $table) {
-            $table->id("id_inventario");
-            $table->unsignedInteger("cantidad_disponible");
-		    $table->unsignedInteger("cantidad_minima");
-            $table->timestamps();
+            $table->id('id_inventario');
 
-		$table->unsignedBigInteger("id_producto");
-		$table->foreign("id_producto")->references("id_producto")->on("producto")->onDelete("cascade");
-;
+            $table->unsignedInteger('cantidad_disponible');
+            $table->unsignedInteger('cantidad_minima');
+
+            $table->unsignedBigInteger('id_producto');
+
+            $table->foreign('id_producto')
+                ->references('id_producto')
+                ->on('producto')
+                ->onDelete('cascade');
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('inventario');

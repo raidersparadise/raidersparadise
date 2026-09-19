@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\RolService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RolController extends Controller
 {
@@ -31,38 +32,57 @@ class RolController extends Controller
     }
 
     public function store(Request $request)
+{
+    $data = $request->validate([
+        'nombre_rol' => [
+            'required',
+            'string',
+            'max:40',
+            'unique:rol,nombre_rol',
+        ],
+        'descripcion' => [
+            'required',
+            'string',
+        ],
+    ]);
+
+    $rol = $this->rolService->create($data);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Rol creado correctamente',
+        'data' => $rol
+    ], 201);
+}
+
+    public function update(Request $request, int $id)
     {
         $data = $request->validate([
-            'nombre_rol' => 'required|string|max:40|unique:rol,nombre_rol',
-            'descripcion' => 'required|string',
-        ]);
-
-        return response()->json([
-            'success' => 'Rol creado correctamente',
-            'data' => $this->rolService->create($data)
-        ], 201);
-    }
-
-  public function update(Request $request, int $id){
-        $data = $request->validate([
-            'nombre_rol' => 'sometimes|string|max:40|unique:rol,nombre_rol',
+            'nombre_rol' => [
+                'sometimes',
+                'string',
+                'max:40',
+                Rule::unique('rol', 'nombre_rol')
+                    ->ignore($id, 'id_rol'),
+            ],
             'descripcion' => 'sometimes|string',
         ]);
 
         return response()->json([
-          'success' => 'Rol actualizado correctamente',
-          'data' => $this->rolService->update($data, $id)
+            'success' => 'Rol actualizado correctamente',
+            'data' => $this->rolService->update($data, $id)
         ]);
     }
 
     public function destroy(int $id)
-    {
-        $this->rolService->delete($id);
+{
+    $resultado = $this->rolService->delete($id);
 
-        return response()->json([
-            'success' => 'Rol eliminado correctamente'
-        ]);
-    }
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Rol'
+    );
+}
 
     public function getByNombreRol(string $nombre_rol)
     {

@@ -44,33 +44,47 @@ class BaseRepository implements BaseInterface
 
     public function delete(int $id)
     {
-        $registro = $this->model->find($id);
+        /*
+         * Buscamos también los registros eliminados
+         * para poder saber si el ID existió anteriormente.
+         */
+        $registro = $this->model
+            ->withTrashed()
+            ->find($id);
 
-        if ($registro) {
-            $registro->delete();
-
+        /*
+         * Si nunca existió el registro
+         */
+        if (!$registro) {
             return [
-                'status' => 'deleted',
-                'message' => 'Dato eliminado correctamente'
+                'status' => 'not_found',
+                'message' => 'Dato no encontrado',
+                'data' => null
             ];
         }
-        
-        if (method_exists($this->model, 'trashed')) {
-            $registroEliminado = $this->model
-                ->withTrashed()
-                ->find($id);
 
-            if ($registroEliminado) {
-                return [
-                    'status' => 'already_deleted',
-                    'message' => 'Dato eliminado'
-                ];
-            }
+        /*
+         * Si ya estaba eliminado mediante SoftDelete,
+         * para el CRUD se considera que ya no existe.
+         */
+        if ($registro->trashed()) {
+            return [
+                'status' => 'not_found',
+                'message' => 'Dato no encontrado',
+                'data' => null
+            ];
         }
 
+        /*
+         * Primera eliminación:
+         * SoftDelete actualiza deleted_at.
+         */
+        $registro->delete();
+
         return [
-            'status' => 'not_found',
-            'message' => 'Dato no encontrado'
+            'status' => 'deleted',
+            'message' => 'Dato eliminado correctamente',
+            'data' => $registro
         ];
     }
 }

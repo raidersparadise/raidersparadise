@@ -76,13 +76,14 @@ class ProductoController extends Controller
      * Eliminar un producto.
      */
     public function destroy(int $id)
-    {
-        $this->productoService->delete($id);
+{
+    $resultado = $this->productoService->delete($id);
 
-        return response()->json([
-            'success' => 'Producto eliminado correctamente'
-        ], 200);
-    }
+    return $this->respuestaEliminacion(
+        $resultado,
+        'Producto'
+    );
+}
 
     /**
      * Buscar productos por nombre.
