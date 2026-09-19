@@ -20,7 +20,7 @@ class StoreProductoRequest extends FormRequest
 
             'id_proveedor' => 'required|integer|exists:proveedor,id_proveedor',
 
-            'nombre_producto' => 'required|string|max:40',
+            'nombre_producto' => 'required|string|max:40|unique:producto,nombre_producto',
 
             'descripcion_producto' => 'nullable|string|max:255',
 

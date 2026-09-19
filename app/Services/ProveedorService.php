@@ -32,6 +32,14 @@ class ProveedorService
 
     public function delete(int $id)
     {
+        $proveedor = $this->proveedorRepository->getById($id);
+
+        if (!$proveedor) {
+            throw new ModelNotFoundException(
+            'Proveedor no encontrado'
+            );
+         }
+
         return $this->proveedorRepository->delete($id);
     }
 
