@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Reporte\StoreReporteRequest;
+use App\Http\Requests\Reporte\UpdateReporteRequest;
 use App\Services\ReporteService;
-use Illuminate\Http\Request;
 
 class ReporteController extends Controller
 {
@@ -30,13 +31,9 @@ class ReporteController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreReporteRequest $request)
     {
-        $data = $request->validate([
-            'id_usuario' => 'required|integer',
-            'tipo_reporte' => 'required|string|max:100',
-            'fecha_generacion' => 'required|date',
-        ]);
+        $data = $request->validated();
 
         return response()->json([
             'success' => 'Reporte creado correctamente',
@@ -44,13 +41,9 @@ class ReporteController extends Controller
         ], 201);
     }
 
-    public function update(Request $request, int $id)
+    public function update(UpdateReporteRequest $request, int $id)
     {
-        $data = $request->validate([
-            'id_usuario' => 'sometimes|integer',
-            'tipo_reporte' => 'sometimes|string|max:100',
-            'fecha_generacion' => 'sometimes|date',
-        ]);
+        $data = $request->validated();
 
         return response()->json([
             'success' => 'Reporte actualizado correctamente',
@@ -59,14 +52,14 @@ class ReporteController extends Controller
     }
 
     public function destroy(int $id)
-{
-    $resultado = $this->reporteService->delete($id);
+    {
+        $resultado = $this->reporteService->delete($id);
 
-    return $this->respuestaEliminacion(
-        $resultado,
-        'Reporte'
-    );
-}
+        return $this->respuestaEliminacion(
+            $resultado,
+            'Reporte'
+        );
+    }
 
     public function getByUsuario(int $id_usuario)
     {

@@ -60,15 +60,24 @@ class InventarioController extends Controller
         ], 200);
     }
 
-    public function destroy(int $id)
-    {
-        $resultado = $this->inventarioService->delete($id);
+   public function destroy(int $id)
+{
+    $resultado = $this->inventarioService->delete($id);
 
-        return $this->respuestaEliminacion(
-            $resultado,
-            'Inventario'
-        );
+    if (!$resultado['success']) {
+        return response()->json([
+            'success' => false,
+            'message' => $resultado['message'],
+            'data' => null
+        ], 404);
     }
+
+    return response()->json([
+        'success' => true,
+        'message' => $resultado['message'],
+        'data' => $resultado['data']
+    ], 200);
+}
 
     public function getByCantidadDisponible(int $cantidad_disponible)
     {

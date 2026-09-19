@@ -32,13 +32,36 @@ class InventarioService implements InventarioInterface
     }
 
     public function delete(int $id)
-    {
-        $inventario = Inventario::findOrFail($id);
+{
+    $inventario = Inventario::withTrashed()->find($id);
 
-        $inventario->delete();
-
-        return true;
+    // Nunca existió
+    if (!$inventario) {
+        return [
+            'success' => false,
+            'message' => 'Dato no encontrado',
+            'data' => null
+        ];
     }
+
+    // Ya había sido eliminado
+    if ($inventario->trashed()) {
+        return [
+            'success' => false,
+            'message' => 'Dato no encontrado',
+            'data' => null
+        ];
+    }
+
+    // Primera eliminación
+    $inventario->delete();
+
+    return [
+        'success' => true,
+        'message' => 'Inventario eliminado correctamente',
+        'data' => $inventario
+    ];
+}
 
     public function getByCantidadDisponible(int $cantidad_disponible)
     {

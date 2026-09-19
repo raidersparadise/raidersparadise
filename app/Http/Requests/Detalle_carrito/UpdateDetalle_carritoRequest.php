@@ -21,4 +21,25 @@ class UpdateDetalleCarritoRequest extends FormRequest
             'subtotal' => 'sometimes|numeric|min:0',
         ];
     }
+
+
+    public function messages(): array
+    {
+        return [
+            'id_carrito.integer' => 'El ID del carrito debe ser un número entero.',
+            'id_carrito.exists' => 'El carrito seleccionado no existe.',
+
+            'id_producto.integer' => 'El ID del producto debe ser un número entero.',
+            'id_producto.exists' => 'El producto seleccionado no existe.',
+
+            'cantidad.integer' => 'La cantidad debe ser un número entero.',
+            'cantidad.min' => 'La cantidad debe ser al menos 1.',
+
+            'precio_unitario.numeric' => 'El precio unitario debe ser un número.',
+            'precio_unitario.min' => 'El precio unitario no puede ser negativo.',
+
+            'subtotal.numeric' => 'El subtotal debe ser un número.',
+            'subtotal.min' => 'El subtotal no puede ser negativo.',
+        ];
+    }
 }

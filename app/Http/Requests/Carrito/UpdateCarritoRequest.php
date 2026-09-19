@@ -18,4 +18,14 @@ class UpdateCarritoRequest extends FormRequest
             'fecha_agregado' => 'sometimes|date',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'id_cliente.integer' => 'El ID del cliente debe ser un número entero.',
+            'id_cliente.exists' => 'El cliente seleccionado no existe.',
+
+            'fecha_agregado.date' => 'La fecha de agregado debe ser una fecha válida.',
+        ];
+    }
 }

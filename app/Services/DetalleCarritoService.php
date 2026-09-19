@@ -34,11 +34,39 @@ class DetalleCarritoService implements DetalleCarritoInterface
     }
 
     // Actualizar detalle
-    public function update(array $datos, int $id)
+    public function update(array $datos, int $id)   
     {
-        return $this->detalleCarritoRepository->update($datos, $id);
-    }
+        $detalleActual = $this->detalleCarritoRepository->getById($id);
 
+        if (!$detalleActual) {
+            return null;
+        }
+
+        $sinCambios = true;
+
+        foreach ($datos as $campo => $valor) {
+            if ($detalleActual->$campo != $valor) {
+                $sinCambios = false;
+                break;
+            }
+        }
+
+        if ($sinCambios) {
+            return [
+                'ya_actualizado' => true,
+                'mensaje' => 'El detalle del carrito ya se encuentra actualizado',
+                'detalle' => $detalleActual
+            ];
+        }
+
+        $detalleActualizado = $this->detalleCarritoRepository->update($datos, $id);
+
+        return [
+            'ya_actualizado' => false,
+            'mensaje' => 'Detalle del carrito actualizado correctamente',
+            'detalle' => $detalleActualizado
+        ];
+    }
     // Eliminar detalle
     public function delete(int $id)
     {

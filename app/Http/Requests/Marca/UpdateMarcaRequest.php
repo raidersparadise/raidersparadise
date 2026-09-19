@@ -18,4 +18,15 @@ class UpdateMarcaRequest extends FormRequest
             'descripcion_marca' => 'nullable|string|max:255',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'nombre_marca.string' => 'El nombre de la marca debe ser una cadena de texto.',
+            'nombre_marca.max' => 'El nombre de la marca no debe exceder los 40 caracteres.',
+
+            'descripcion_marca.string' => 'La descripción de la marca debe ser una cadena de texto.',
+            'descripcion_marca.max' => 'La descripción de la marca no debe exceder los 255 caracteres.',
+        ];
+    }
 }

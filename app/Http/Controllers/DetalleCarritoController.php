@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\DetalleCarritoService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Detalle_carrito\StoreDetalle_carritoRequest;
+use App\Http\Requests\Detalle_carrito\UpdateDetalle_carritoRequest;
 
 class DetalleCarritoController extends Controller
 {
@@ -37,9 +38,9 @@ class DetalleCarritoController extends Controller
     }
 
     // Crear
-    public function store(Request $request)
+    public function store(StoreDetalle_carritoRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $detalle = $this->detalleCarritoService->create($data);
 
@@ -50,27 +51,40 @@ class DetalleCarritoController extends Controller
     }
 
     // Actualizar
-    public function update(Request $request, int $id)
+    public function update(UpdateDetalle_carritoRequest $request, int $id)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
-        $detalle = $this->detalleCarritoService->update($data, $id);
+        $resultado = $this->detalleCarritoService->update($data, $id);
+
+        if ($resultado === null) {
+            return response()->json([
+                'message' => 'Detalle del carrito no encontrado'
+            ], 404);
+        }
+
+        if ($resultado['ya_actualizado'] === true) {
+            return response()->json([
+                'message' => 'El detalle del carrito ya se encuentra actualizado',
+                'data' => $resultado['detalle']
+            ]);
+        }
 
         return response()->json([
-            'mensaje' => 'Detalle del carrito actualizado correctamente',
-            'datos' => $detalle
-        ], 200);
+            'message' => 'Detalle del carrito actualizado correctamente',
+            'data' => $resultado['detalle']
+        ]);
     }
 
     // Eliminar
     public function destroy(int $id)
-{
-    $resultado = $this->detalleCarritoService->delete($id);
+    {
+        $resultado = $this->detalleCarritoService->delete($id);
 
-    return $this->respuestaEliminacion(
-        $resultado,
-        'Detalle del carrito'
-    );
+        return $this->respuestaEliminacion(
+         $resultado,
+            'Detalle del carrito'
+        );
 }
 
     // Buscar por carrito

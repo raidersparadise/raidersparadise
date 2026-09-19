@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\RolService;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\Rol\StoreRolRequest;
+use App\Http\Requests\Rol\UpdateRolRequest;
 
 class RolController extends Controller
 {
@@ -31,58 +31,53 @@ class RolController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-{
-    $data = $request->validate([
-        'nombre_rol' => [
-            'required',
-            'string',
-            'max:40',
-            'unique:rol,nombre_rol',
-        ],
-        'descripcion' => [
-            'required',
-            'string',
-        ],
-    ]);
-
-    $rol = $this->rolService->create($data);
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Rol creado correctamente',
-        'data' => $rol
-    ], 201);
-}
-
-    public function update(Request $request, int $id)
+    public function store(StoreRolRequest $request)
     {
-        $data = $request->validate([
-            'nombre_rol' => [
-                'sometimes',
-                'string',
-                'max:40',
-                Rule::unique('rol', 'nombre_rol')
-                    ->ignore($id, 'id_rol'),
-            ],
-            'descripcion' => 'sometimes|string',
-        ]);
+        $data = $request->validated();
 
         return response()->json([
-            'success' => 'Rol actualizado correctamente',
-            'data' => $this->rolService->update($data, $id)
+            'success' => 'Rol creado correctamente',
+            'data' => $this->rolService->create($data)
+        ], 201);
+    }
+
+    public function update(UpdateRolRequest $request, int $id)
+    {
+        $data = $request->validated();
+
+        $resultado = $this->rolService->update($data, $id);
+
+        // Si el rol no existe
+        if ($resultado === null) {
+            return response()->json([
+                'message' => 'Rol no encontrado'
+            ], 404);
+        }
+
+        // Si el rol ya tenía exactamente los mismos datos
+        if ($resultado['ya_actualizado'] === true) {
+            return response()->json([
+                'message' => 'El rol ya se encuentra actualizado',
+                'data' => $resultado['rol']
+            ]);
+        }
+
+        // Si realmente hubo cambios
+        return response()->json([
+            'message' => 'Rol actualizado correctamente',
+            'data' => $resultado['rol']
         ]);
     }
 
     public function destroy(int $id)
-{
-    $resultado = $this->rolService->delete($id);
+    {
+        $resultado = $this->rolService->delete($id);
 
-    return $this->respuestaEliminacion(
-        $resultado,
-        'Rol'
-    );
-}
+        return $this->respuestaEliminacion(
+            $resultado,
+            'Rol'
+        );
+    }
 
     public function getByNombreRol(string $nombre_rol)
     {

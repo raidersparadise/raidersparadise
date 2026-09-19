@@ -35,7 +35,36 @@ class ClienteService implements ClienteInterface
     // Actualizar cliente
     public function update(array $datos, int $id)
     {
-        return $this->clienteRepository->update($datos, $id);
+        $clienteActual = $this->clienteRepository->getById($id);
+
+        if (!$clienteActual) {
+            return null;
+        }
+
+        $sinCambios = true;
+
+        foreach ($datos as $campo => $valor) {
+            if ($clienteActual->$campo != $valor) {
+                $sinCambios = false;
+                break;
+            }
+        }
+
+        if ($sinCambios) {
+            return [
+                'ya_actualizado' => true,
+                'mensaje' => 'El cliente ya se encuentra actualizado',
+                'cliente' => $clienteActual
+            ];
+        }
+
+        $clienteActualizado = $this->clienteRepository->update($datos, $id);
+
+        return [
+            'ya_actualizado' => false,
+            'mensaje' => 'Cliente actualizado correctamente',
+            'cliente' => $clienteActualizado
+        ];
     }
 
     // Eliminar cliente

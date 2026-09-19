@@ -28,7 +28,36 @@ class CategoriaService implements CategoriaInterface
 
     public function update(array $datos, int $id)
     {
-        return $this->categoriaRepository->update($datos, $id);
+        $categoriaActual = $this->categoriaRepository->getById($id);
+
+        if (!$categoriaActual) {
+            return null;
+        }
+
+        $sinCambios = true;
+
+        foreach ($datos as $campo => $valor) {
+            if ($categoriaActual->$campo != $valor) {
+                $sinCambios = false;
+                break;
+            }
+        }
+
+        if ($sinCambios) {
+            return [
+                'ya_actualizado' => true,
+                'mensaje' => 'La categoría ya se encuentra actualizada',
+                'categoria' => $categoriaActual
+            ];
+        }
+
+        $categoriaActualizada = $this->categoriaRepository->update($datos, $id);
+
+        return [
+            'ya_actualizado' => false,
+            'mensaje' => 'Categoría actualizada correctamente',
+            'categoria' => $categoriaActualizada
+        ];
     }
 
     public function delete(int $id)

@@ -35,8 +35,36 @@ class DetallePedidoService implements DetallePedidoInterface
 
     public function update(array $datos, int $id)
     {
-        return $this->detallePedidoRepository
-            ->update($datos, $id);
+        $detalleActual = $this->detallePedidoRepository->getById($id);
+
+        if (!$detalleActual) {
+            return null;
+        }   
+
+        $sinCambios = true;
+
+        foreach ($datos as $campo => $valor) {
+            if ($detalleActual->$campo != $valor) {
+                $sinCambios = false;
+                break;
+            }
+        }
+
+        if ($sinCambios) {
+            return [
+                'ya_actualizado' => true,
+                'mensaje' => 'El detalle del pedido ya se encuentra actualizado',
+                'detalle' => $detalleActual
+            ];
+        }
+
+        $detalleActualizado = $this->detallePedidoRepository->update($datos, $id);
+
+        return [
+            'ya_actualizado' => false,
+            'mensaje' => 'Detalle de pedido actualizado correctamente',
+            'detalle' => $detalleActualizado
+        ];
     }
 
     public function delete(int $id)

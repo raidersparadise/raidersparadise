@@ -35,7 +35,36 @@ class CarritoService implements CarritoInterface
     // Actualizar carrito
     public function update(array $datos, int $id)
     {
-        return $this->carritoRepository->update($datos, $id);
+        $carritoActual = $this->carritoRepository->getById($id);
+
+        if (!$carritoActual) {
+            return null;
+        }
+
+        $sinCambios = true;
+
+        foreach ($datos as $campo => $valor) {
+            if ($carritoActual->$campo != $valor) {
+                $sinCambios = false;
+                break;
+            }
+        }
+
+        if ($sinCambios) {
+            return [
+                'ya_actualizado' => true,
+                'mensaje' => 'El carrito ya se encuentra actualizado',
+                'carrito' => $carritoActual
+            ];
+        }
+
+        $carritoActualizado = $this->carritoRepository->update($datos, $id);
+
+        return [
+            'ya_actualizado' => false,
+            'mensaje' => 'Carrito actualizado correctamente',
+            'carrito' => $carritoActualizado
+        ];
     }
 
     // Eliminar carrito
