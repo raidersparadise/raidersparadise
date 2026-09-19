@@ -63,14 +63,29 @@ class DetalleCarritoController extends Controller
     }
 
     // Eliminar
-    public function destroy(int $id)
-    {
-        $this->detalleCarritoService->delete($id);
+    public function destroy($id)
+{
+    $resultado = $this->detalleCarritoService->delete($id);
 
+    if ($resultado['status'] === 'deleted') {
         return response()->json([
-            'mensaje' => 'Detalle del carrito eliminado correctamente'
+            'success' => true,
+            'message' => 'Dato eliminado correctamente'
         ], 200);
     }
+
+    if ($resultado['status'] === 'already_deleted') {
+        return response()->json([
+            'success' => false,
+            'message' => 'Dato eliminado'
+        ], 410);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'Dato no encontrado'
+    ], 404);
+}
 
     // Buscar por carrito
     public function getByCarrito(int $id_carrito)

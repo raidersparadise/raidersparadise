@@ -46,10 +46,31 @@ class BaseRepository implements BaseInterface
     {
         $registro = $this->model->find($id);
 
-        if (!$registro) {
-            return null;
+        if ($registro) {
+            $registro->delete();
+
+            return [
+                'status' => 'deleted',
+                'message' => 'Dato eliminado correctamente'
+            ];
+        }
+        
+        if (method_exists($this->model, 'trashed')) {
+            $registroEliminado = $this->model
+                ->withTrashed()
+                ->find($id);
+
+            if ($registroEliminado) {
+                return [
+                    'status' => 'already_deleted',
+                    'message' => 'Dato eliminado'
+                ];
+            }
         }
 
-        return $registro->delete();
+        return [
+            'status' => 'not_found',
+            'message' => 'Dato no encontrado'
+        ];
     }
 }

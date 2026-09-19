@@ -12,7 +12,7 @@ return new class extends Migration
         $table->id('id_cliente');
         $table->string('nombre_cliente');
         $table->string('apellido_cliente');
-        $table->string('email_cliente');
+        $table->string('email_cliente')->unique();
         $table->string('telefono_cliente');
         $table->string('direccion_cliente');
         $table->softDeletes();
