@@ -60,14 +60,29 @@ class PedidoController extends Controller
         ], 200);
     }
 
-    public function destroy(int $id)
-    {
-        $this->pedidoService->delete($id);
+    public function destroy($id)
+{
+    $resultado = $this->pedidoService->delete($id);
 
+    if ($resultado['status'] === 'deleted') {
         return response()->json([
-            'success' => 'Pedido eliminado correctamente'
+            'success' => true,
+            'message' => 'Dato eliminado correctamente'
         ], 200);
     }
+
+    if ($resultado['status'] === 'already_deleted') {
+        return response()->json([
+            'success' => false,
+            'message' => 'Dato eliminado'
+        ], 410);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'Dato no encontrado'
+    ], 404);
+}
 
     public function getByEstado(string $estado)
     {
