@@ -66,12 +66,27 @@ class DetallePedidoController extends Controller
 
     public function destroy(int $id)
     {
-        $this->detallePedidoService->delete($id);
+        $resultado = $this->detallePedidoService->delete($id);
+
+        if ($resultado['status'] === 'deleted') {
+            return response()->json([
+                'success' => true,
+                'message' => 'Detalle de pedido eliminado correctamente'
+            ], 200);
+        }
+
+        if ($resultado['status'] === 'already_deleted') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Detalle de pedido eliminado'
+            ], 410);
+        }
 
         return response()->json([
-            'success' => 'Detalle de pedido eliminado correctamente'
-        ], 200);
-    }
+            'success' => false,
+            'message' => 'Detalle de pedido no encontrado'
+        ], 404);
+    }   
 
     public function porCantidad(int $cantidad)
     {
