@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\ProductoInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductoService
 {
@@ -32,8 +33,16 @@ class ProductoService
 
     public function delete(int $id)
     {
+        $producto = $this->productoRepository->getById($id);
+
+        if (!$producto) {
+            throw new ModelNotFoundException(
+            'Producto no encontrado'
+            );
+        }
+
         return $this->productoRepository->delete($id);
-    }
+    }   
 
     public function getByNombreProducto(string $nombre_producto)
     {
@@ -89,3 +98,5 @@ class ProductoService
             ->getByProveedor($id_proveedor);
     }
 }
+
+///Hola
