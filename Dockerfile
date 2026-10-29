@@ -38,4 +38,5 @@ RUN chown -R www-data:www-data \
 EXPOSE 8000
 
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+RUN chmod +x docker/entrypoint.sh
+CMD ["sh", "docker/entrypoint.sh"]

@@ -6,30 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('factura', function (Blueprint $table) {
-            $table->id();
-            $table->datetime("fecha_factura");
-            $table->decimal("total_factura", 10,2);
-            $table->decimal("impuesto", 10,2);
-            $table->string("estado_factura", 50);
-            $table->decimal("pago", 10,2); 
-            $table->string("metodo_pago", 50);
+            $table->id('id_factura');
+            $table->unsignedBigInteger('id_pedido')->unique();
+            $table->string('numero_factura', 20)->unique();
+            $table->dateTime('fecha_factura');
+            $table->decimal('subtotal', 12, 2);
+            $table->decimal('impuesto', 12, 2);
+            $table->decimal('total_factura', 12, 2);
+            $table->string('estado_factura', 20); // pagada | pendiente | anulada
+            $table->decimal('pago', 12, 2);
+            $table->string('metodo_pago', 50);
             $table->timestamps();
 
-        $table->unsignedBigInteger("id_pedido");
-		$table->foreign("id_pedido")->references("id_pedido")->on("pedido")->onDelete("cascade");
-
+            $table->foreign('id_pedido')->references('id_pedido')->on('pedido')->cascadeOnDelete();
         });
     }
-  
-    /**
-     * Reverse the migraciones hptas.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('factura');

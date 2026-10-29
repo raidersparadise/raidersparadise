@@ -9,31 +9,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pqr', function (Blueprint $table) {
-            $table->id("id_pqr");
+            $table->id('id_pqr');
+            // Usuario (empleado) responsable de atenderla: se asigna después, por eso es opcional
+            $table->unsignedBigInteger('id_usuario')->nullable();
+            $table->unsignedBigInteger('id_cliente');
+            $table->enum('tipo', ['peticion', 'queja', 'reclamo', 'sugerencia'])->default('peticion');
+            $table->string('asunto', 120);
+            $table->string('descripcion_pqr', 1000);
+            $table->enum('estado', ['recibida', 'asignada', 'en proceso', 'requerido', 'cerrada', 'rechazada'])->default('recibida');
+            $table->text('respuesta')->nullable();
+            $table->date('fecha');
+            $table->dateTime('fecha_cierre')->nullable();
+            $table->timestamps();
 
-            $table->unsignedBigInteger("id_usuario");
-            $table->unsignedBigInteger("id_cliente");
-
-            $table->string("descripcion_pqr", 255);
-
-            $table->enum("estado", [
-                "recibida",
-                "asignada",
-                "en proceso",
-                "requerido",
-                "cerrada",
-                "rechazada"
-            ]);
-
-            $table->date("fecha");
-
-            $table->foreign("id_usuario")
-                  ->references("id_usuario")
-                  ->on("usuario");
-
-            $table->foreign("id_cliente")
-                  ->references("id_cliente")
-                  ->on("cliente");
+            $table->foreign('id_usuario')->references('id_usuario')->on('usuario')->nullOnDelete();
+            $table->foreign('id_cliente')->references('id_cliente')->on('cliente')->cascadeOnDelete();
         });
     }
 

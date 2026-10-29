@@ -11,7 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'rol' => \App\Http\Middleware\EnsureRol::class,
+        ]);
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(fn ($request) => $request->user()?->esPersonal()
+            ? route('admin.dashboard')
+            : route('home'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

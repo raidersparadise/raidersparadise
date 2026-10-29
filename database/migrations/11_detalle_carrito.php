@@ -6,27 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('detalle_carrito', function (Blueprint $table) {
-            $table->id("id_detalle_carrito");
-            $table->unsignedBigInteger("id_carrito");
-            $table->foreign("id_carrito")->references("id_carrito")->on("carrito")->onDelete("cascade");
-            $table->unsignedBigInteger("id_producto");
-            $table->foreign("id_producto")->references("id_producto")->on("producto")->onDelete("cascade");
-            $table->unsignedInteger("cantidad");
-            $table->decimal("precio_unitario", 12, 2);
-            $table->decimal("subtotal", 12, 2);
+            $table->id('id_detalle_carrito');
+            $table->unsignedBigInteger('id_carrito');
+            $table->unsignedBigInteger('id_producto');
+            $table->unsignedInteger('cantidad');
+            $table->decimal('precio_unitario', 12, 2);
+            $table->decimal('subtotal', 12, 2);
             $table->timestamps();
+
+            $table->unique(['id_carrito', 'id_producto']);
+            $table->foreign('id_carrito')->references('id_carrito')->on('carrito')->cascadeOnDelete();
+            $table->foreign('id_producto')->references('id_producto')->on('producto')->cascadeOnDelete();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('detalle_carrito');

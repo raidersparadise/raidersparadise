@@ -6,24 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('proveedor', function (Blueprint $table) {
             $table->id('id_proveedor');
-            $table->string('nombre_proveedor', 40);
-            $table->integer('telefono_proveedor')->nullable();
+            $table->string('nit', 20)->nullable();
+            $table->string('nombre_proveedor', 80);
+            // corregido: era integer; un celular de 10 dígitos (3001234567) desborda un INT
+            $table->string('telefono_proveedor', 20)->nullable();
             $table->string('direccion_proveedor', 100)->nullable();
             $table->string('email_proveedor', 100)->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('proveedor');
